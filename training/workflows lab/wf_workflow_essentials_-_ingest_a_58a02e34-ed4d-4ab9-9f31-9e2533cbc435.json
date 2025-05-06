@@ -1,0 +1,164 @@
+{
+  "id": "58a02e34-ed4d-4ab9-9f31-9e2533cbc435",
+  "title": "Workflow Essentials - Ingest and Alert",
+  "tasks": {
+    "js_get_credential": {
+      "name": "js_get_credential",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { credentialVaultClient } from '@dynatrace-sdk/client-classic-environment-v2';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  // CREDENTIAL\n  const CREDENTIAL = parameters['CREDENTIAL'];\n\n  // get the credentials from the credential vault using the SDK\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#getcredentialsdetails\n  const data = (await credentialVaultClient.getCredentialsDetails({id: CREDENTIAL}));\n  const token = data['token'];\n\n  return { token: token };\n}"
+      },
+      "position": {
+        "x": -1,
+        "y": 3
+      },
+      "predecessors": [
+        "http_easytravel_search"
+      ],
+      "conditions": {
+        "states": {
+          "http_easytravel_search": "SUCCESS"
+        },
+        "custom": "{{ result(\"http_easytravel_search\")[\"status_code\"] == 200 and result(\"http_easytravel_search\")[\"json\"] | length > 0 }}"
+      }
+    },
+    "js_set_parameters": {
+      "name": "js_set_parameters",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "export default async function () {\n\n  let PARAMETERS = {\n\n    // EASYTRAVEL_URL - the URL to the easytravel rest API to search for journeys and receive JSON payload\n    EASYTRAVEL_URL: \"http://aeb26f2507d934338baf67206067edef-612923892.us-east-1.elb.amazonaws.com/easytravel/rest/journeys/?match=Dallas&from=&to=\", // i.e. EASYTRAVEL_URL: \"http://aeb26f2507d934338baf67206067edef-612923892.us-east-1.elb.amazonaws.com/easytravel/rest/journeys/?match=Dallas&from=&to=\"\n\n    // METRIC - the unique metric id to ingest a data point for the easytravel journey amount\n    METRIC: \"custom.workflow_essentials.easytravel.journey_amount\", // i.e. METRIC: \"custom.workflow_essentials.easytravel.journey_amount\"\n\n    // CREDENTIAL - the credential vault entity ID that holds the Dynatrace API token value with metrics.ingest scope\n    CREDENTIAL: \"CREDENTIALS_VAULT-FAD0EB302E6ABA77\", // i.e. CREDENTIAL: \"CREDENTIALS_VAULT-123ABCF8F36FD\"\n\n    // INGEST_URL - the URL of the dynatrace metric ingest API endpoint\n    INGEST_URL: \"https://spa75865.live.dynatrace.com/api/v2/metrics/ingest\", // i.e. INGEST_URL: \"https://abc123.live.dynatrace.com/api/v2/metrics/ingest\"\n\n    // THRESHOLD - the threshold amount to trigger an alert event\n    THRESHOLD: 500, // i.e. THRESHOLD: 500; trigger an alert event if the average journey amount is above 500.00\n\n  }\n\n  return PARAMETERS;\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 1
+      },
+      "predecessors": []
+    },
+    "http_ingest_metric": {
+      "name": "http_ingest_metric",
+      "action": "dynatrace.automations:http-function",
+      "description": "Issue an HTTP request to any API",
+      "input": {
+        "url": "{{ result(\"js_set_parameters\")['INGEST_URL'] }}",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "text/plain",
+          "Authorization": "Api-Token {{ result(\"js_get_credential\")[\"token\"] }}"
+        },
+        "payload": "{{ result(\"js_set_parameters\")[\"METRIC\"] }},id={{ result(\"http_easytravel_search\")[\"json\"][0][\"id\"] }},destination={{ result(\"http_easytravel_search\")[\"json\"][0][\"destination\"] }} {{ result(\"http_easytravel_search\")[\"json\"][0][\"amount\"] }}",
+        "failOnResponseCodes": "400-599"
+      },
+      "position": {
+        "x": -1,
+        "y": 4
+      },
+      "predecessors": [
+        "js_get_credential"
+      ],
+      "conditions": {
+        "states": {
+          "js_get_credential": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_get_credential\")['token'] is defined }}"
+      }
+    },
+    "js_dql_query_alert": {
+      "name": "js_dql_query_alert",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { queryExecutionClient } from \"@dynatrace-sdk/client-query\";\nimport { eventsClient, EventIngestEventType } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst SEARCH_TASK = 'http_easytravel_search';\n\nexport default async function ({ execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  const METRIC = parameters['METRIC'];\n  const THRESHOLD = parameters['THRESHOLD'];\n  // previous results\n  const search_results = await ex.result(SEARCH_TASK);\n  const destination = search_results['json'][0]['destination'];\n\n  // build the DQL query for the metric\n  // query the metric value for the last 5 minutes\n  // https://developer.dynatrace.com/develop/sdks/client-query/#queryexecute\n  const timeout = 60;\n  const query = 'timeseries journey_amount = avg(' + METRIC + '), by: {destination}, from: now()-5m\\\n                  | filter destination == \"' + destination + '\"\\\n                  | summarize avg_amount = avg(arrayAvg(journey_amount))';\n\n  const query_response = await queryExecutionClient.queryExecute({ body: { query, requestTimeoutMilliseconds: timeout * 1000, fetchTimeoutSeconds: timeout  } });\n\n  // check if the query result is empty (unexpectedly)\n  if(query_response.result.records.length == 0) {\n    console.log(\"Query returned an empty result unexpectedly!\");\n    return query_response.result;\n  }\n\n  // capture the average journey amount from query response\n  const avg_amount = parseFloat(query_response.result.records[0]['avg_amount']);\n\n  // check if the avg amount value is above the threshold parameter, if true then raise alert event\n  if(avg_amount > THRESHOLD) {\n    // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#createevent\n    const event_response = await eventsClient.createEvent({\n      // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#eventingest\n      body : {\n        eventType: EventIngestEventType.CustomAlert, // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#eventingesteventtype\n        title: 'EasyTravel Journey Amount [ ' + avg_amount + ' ]',\n        timeout: 5,\n        properties: {\n          'amount': avg_amount,\n          'threshold' : THRESHOLD,\n        }\n      }\n    });\n\n    // validate that the alert event was created, return the correlationId and details\n    if(event_response.eventIngestResults[0].status == \"OK\") {\n      return {\n        amount: avg_amount,\n        threshold: THRESHOLD,\n        correlationId: event_response.eventIngestResults[0].correlationId\n      }\n    } else {\n      return {\n        amount: avg_amount,\n        threshold: THRESHOLD,\n        correlationId: \"ERROR\"\n      }\n    }\n  }\n}\n    "
+      },
+      "position": {
+        "x": 1,
+        "y": 5
+      },
+      "predecessors": [
+        "js_wait_30_seconds"
+      ],
+      "conditions": {
+        "states": {
+          "js_wait_30_seconds": "SUCCESS"
+        }
+      }
+    },
+    "js_wait_30_seconds": {
+      "name": "js_wait_30_seconds",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "// optional import of sdk modules\nimport { execution } from '@dynatrace-sdk/automation-utils';\n\nexport default async function () {\n\n  const sleep = async (waitTime: number) =>\n  new Promise(resolve =>\n    setTimeout(resolve, waitTime));\n\n  const waitTime = async () => {\n  // 30,000ms = 30 seconds to sleep\n  await sleep(30000);\n  console.log(\"Finished Waiting\");\n  }\n\n  console.log(\"Waiting 30 Seconds\");\n  waitTime();\n\n}"
+      },
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "predecessors": [
+        "http_ingest_metric",
+        "js_ingest_metric_sdk"
+      ],
+      "conditions": {
+        "states": {
+          "http_ingest_metric": "SUCCESS",
+          "js_ingest_metric_sdk": "SUCCESS"
+        }
+      }
+    },
+    "js_ingest_metric_sdk": {
+      "name": "js_ingest_metric_sdk",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { metricsClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst SEARCH_TASK = 'http_easytravel_search';\n\nexport default async function ({ execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  const METRIC = parameters['METRIC'];\n  // previous results\n  const search_results = await ex.result(SEARCH_TASK);\n  const id = search_results['json'][0]['id'];\n  const amount = search_results['json'][0]['amount'];\n  const destination = search_results['json'][0]['destination'];\n\n  // build the line_protocol string to ingest the metric data point\n  const line_protocol = METRIC + ',id=' + id + ',destination=' + destination + ' ' + amount;\n  // (optional) log the line_protocol value\n  console.log(line_protocol);\n  // ingest the metric data point using the SDK\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#ingest-1\n  const data = await metricsClient.ingest({\n    body: line_protocol,\n  });\n\n  return { data: data };\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 3
+      },
+      "predecessors": [
+        "http_easytravel_search"
+      ],
+      "conditions": {
+        "states": {
+          "http_easytravel_search": "SUCCESS"
+        },
+        "custom": "{{ result(\"http_easytravel_search\")[\"status_code\"] == 200 and result(\"http_easytravel_search\")[\"json\"] | length > 0 }}"
+      }
+    },
+    "http_easytravel_search": {
+      "name": "http_easytravel_search",
+      "action": "dynatrace.automations:http-function",
+      "description": "Issue an HTTP request to any API",
+      "input": {
+        "url": "{{ result(\"js_set_parameters\")['EASYTRAVEL_URL'] }}",
+        "method": "GET",
+        "headers": {
+          "accept": "application/json"
+        },
+        "failOnResponseCodes": "400-599"
+      },
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "predecessors": [
+        "js_set_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_set_parameters": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_set_parameters\")['EASYTRAVEL_URL'] is defined }}"
+      }
+    }
+  },
+  "description": "",
+  "actor": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "owner": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "ownerType": "USER",
+  "isPrivate": true,
+  "trigger": {},
+  "schemaVersion": 3
+}

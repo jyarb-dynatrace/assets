@@ -1,0 +1,131 @@
+{
+  "id": "08bf08a9-6972-4ad3-8dbf-b590789f486d",
+  "title": "WorkFlow Essentials",
+  "tasks": {
+    "js_set_parameters": {
+      "name": "js_set_parameters",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "export default async function () {\n\n  let PARAMETERS = {\n\n    // INITIALS - the initials of the user for this lab\n    INITIALS: \"JMY\", // i.e. INITIALS: \"TPC\"; the intials of the user for this lab are TPC\n\n    // LOCATION - the city and country of the user for this lab\n    LOCATION: \"Panama City Beach, United States\", // i.e. LOCATION: \"Dallas, United States\";\n\n    // TENURE - the number of years of tenure of the user for this lab\n    TENURE: 13, // i.e. TENURE: 14; the user for this lab has 14 years of tenure\n\n    // STATUS_URL - the URL of the dynatrace status.io API\n    STATUS_URL: \"https://api.status.io/1.0/status/546d8cb6af8407b6730000cb\", // i.e. STATUS_URL: \"https://api.status.io/1.0/status/546d8cb6af8407b6730000cb\"\n\n    // WEBHOOK_URL- the URL of the webhook.site unique endpoint\n    WEBHOOK_URL: \"https://webhook.site/4cf96a14-ec9f-4ff2-a105-c0074a3c04f5\", // i.e. WEBHOOK_URL: \"https://webhook.site/18637ec8-fcf9-43ec-86bf-993626982c6c\"\n\n  }\n\n  return PARAMETERS;\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 1
+      },
+      "predecessors": []
+    },
+    "js_fetch_status_io": {
+      "name": "js_fetch_status_io",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  // STATUS_URL\n  const STATUS_URL = parameters['STATUS_URL'];\n\n  // set the fetch() api parameters [method, headers, body]\n  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\n  const options = {\n    method: \"GET\",\n    headers: {\n      'accept': \"application/json\",\n    }\n  };\n\n  // execute the fetch() api call\n  // set the url parameter equal to the status.io url parameter\n  const url = STATUS_URL;\n  // make the fetch call, passing the url and options, capture the response\n  const response = await fetch(url,options);\n  // parse the json response as a new variable\n  const response_json = await response.json();\n  // return the json response\n  return response_json;\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "predecessors": [
+        "js_output_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_output_parameters": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_set_parameters\")['STATUS_URL'] is defined }}"
+      }
+    },
+    "dql_query_bizevents": {
+      "name": "dql_query_bizevents",
+      "action": "dynatrace.automations:execute-dql-query",
+      "description": "Executes DQL query",
+      "input": {
+        "query": "fetch bizevents, from: now()-2h\n| filter event.provider == \"workflow.essentials.withdraw-processing\"\n| summarize count = count(), by: {step = event.type}\n| sort step asc"
+      },
+      "position": {
+        "x": 0,
+        "y": 3
+      },
+      "predecessors": [
+        "js_fetch_status_io"
+      ],
+      "conditions": {
+        "states": {
+          "js_fetch_status_io": "SUCCESS"
+        }
+      }
+    },
+    "js_loop_over_results": {
+      "name": "js_loop_over_results",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution, actionExecution } from '@dynatrace-sdk/automation-utils';\nimport { getCurrentUserDetails,getEnvironmentId,getEnvironmentUrl } from '@dynatrace-sdk/app-environment';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id, action_execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  // WEBHOOK_URL\n  const WEBHOOK_URL = parameters['WEBHOOK_URL'];\n\n  // get the loop item for the action execution\n  const actionEx = await actionExecution(action_execution_id);\n  const record = actionEx.loopItem['item'];\n  // log the loop item record\n  console.log(JSON.stringify(record));\n  // create variables for the step and count attributes within the record\n  const step = record['step'];\n  const count = record['count'];\n\n  // check if step is \"06.funds.received\", send webhook with details\n  if(step == \"06.funds.received\") {\n\n    // get a timestamp to send with the payload\n    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date\n    const timestamp = new Date();\n\n    // Environment ID\n    const environment_id = getEnvironmentId();\n\n    // Workflow execution user details\n    const user_details = getCurrentUserDetails();\n    const user_name = user_details['name']; // get the user name\n\n    // set the fetch() api parameters [method, headers, body]\n    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\n    const options = {\n      method: \"POST\",\n      headers: {\n        'content-type': \"application/json\",\n      },\n      body: JSON.stringify({\n        timestamp: timestamp.toISOString(), // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString\n        step: step,\n        count: count,\n        environment: environment_id,\n        user: user_name\n      })\n    };\n\n    // execute the fetch() api call\n    // set the url parameter equal to the status.io url parameter\n    const url = WEBHOOK_URL;\n    // make the fetch call, passing the url and options, capture the response\n    const response = await fetch(url,options);\n    // capture the response code\n    const response_status = response.status\n\n    return { step: step, count: count, response: response_status };\n  }\n\n  // return the step and count attributes\n  return { step: step, count: count };\n}"
+      },
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "predecessors": [
+        "dql_query_bizevents"
+      ],
+      "conditions": {
+        "states": {
+          "dql_query_bizevents": "SUCCESS"
+        },
+        "custom": "{{ result(\"dql_query_bizevents\").records | length > 0 }}"
+      },
+      "withItems": "item in {{ result(\"dql_query_bizevents\").records }}",
+      "concurrency": 1
+    },
+    "js_output_parameters": {
+      "name": "js_output_parameters",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n\n  // log the parameters\n  console.log(parameters);\n\n  // declare new variables to easily access the parameters within this task\n  const INITIALS = parameters['INITIALS'];\n  const LOCATION = parameters['LOCATION'];\n  const TENURE = parameters['TENURE'];\n\n  // return a string that contains the parameters\n  return \"The lab user \" + INITIALS + \", is located in \" + LOCATION + \".  They have \" + TENURE + \" years of tenure.\";\n\n}"
+      },
+      "position": {
+        "x": 1,
+        "y": 1
+      },
+      "predecessors": [
+        "js_set_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_set_parameters": "SUCCESS"
+        }
+      }
+    },
+    "js_fetch_webhook_site": {
+      "name": "js_fetch_webhook_site",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst FETCH_STATUS_TASK = 'js_fetch_status_io';\n\nexport default async function ({ execution_id }) {\n\n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  // WEBHOOK_URL\n  const WEBHOOK_URL = parameters['WEBHOOK_URL'];\n\n  // get results from previous task\n  // fetch status task result\n  const status_result = await ex.result(FETCH_STATUS_TASK);\n\n  // set the fetch() api parameters [method, headers, body]\n  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\n  const options = {\n    method: \"POST\",\n    headers: {\n      'content-type': \"application/json\",\n    },\n    body: JSON.stringify(status_result)\n  };\n\n  // execute the fetch() api call\n  // set the url parameter equal to the status.io url parameter\n  const url = WEBHOOK_URL;\n  // make the fetch call, passing the url and options, capture the response\n  const response = await fetch(url,options);\n  // capture the response code\n  const response_status = response.status\n\n  return response_status;\n}"
+      },
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "predecessors": [
+        "js_fetch_status_io"
+      ],
+      "conditions": {
+        "states": {
+          "js_fetch_status_io": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_fetch_status_io\")['result'] is defined }}"
+      }
+    }
+  },
+  "description": "",
+  "actor": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "owner": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "ownerType": "USER",
+  "isPrivate": true,
+  "trigger": {},
+  "schemaVersion": 3
+}

@@ -1,0 +1,75 @@
+{
+  "id": "4122b54e-f0fe-44b8-af87-5df1d55c959b",
+  "title": "Workflow Essentials - Third Party Integration",
+  "tasks": {
+    "js_set_parameters": {
+      "name": "js_set_parameters",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Build a custom task running js Code",
+      "input": {
+        "script": "// optional import of sdk modules\nimport { execution } from '@dynatrace-sdk/automation-utils';\n\nexport default async function () {\n\n  let PARAMETERS = {\n\n    // SLACK_CHANNEL - the Slack channel name (without the #) that the Slack bot has been added to\n    SLACK_CHANNEL: \"se-workflow-essentials-02\", // i.e. SLACK_CHANNEL: \"workflow-essentials\",\n\n  }\n\n  return PARAMETERS;\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 1
+      },
+      "predecessors": []
+    },
+    "slack_send_message": {
+      "name": "slack_send_message",
+      "action": "dynatrace.slack:slack-send-message",
+      "description": "send problems to slack",
+      "input": {
+        "channel": "{{ result(\"js_set_parameters\")['SLACK_CHANNEL'] }}",
+        "message": "{\n    \"blocks\": [\n        {\n            \"type\": \"section\",\n            \"block_id\": \"sectionHeader\",\n            \"text\": {\n                \"type\": \"mrkdwn\",\n                \"text\": \"Dynatrace :dt: Problem Detection \\n Workflow Execution: [{{ execution().id }}]\"\n            }\n        },\n        {\n            \"type\": \"divider\"\n        },\n        {\n            \"type\": \"section\",\n            \"block_id\": \"problemState\",\n            \"text\": {\n                \"type\": \"mrkdwn\",\n                \"text\": \"Problem State: {% if event()['event.status'] == 'ACTIVE' %} :warning: OPEN :warning: {% endif %} {% if event()['event.status'] == 'CLOSED' %} :white_check_mark: RESOLVED :white_check_mark: {% endif %}\"\n            }\n        },\n        {\n            \"type\": \"divider\"\n        },\n        {\n            \"type\": \"section\",\n            \"block_id\": \"problemSummary\",\n            \"text\": {\n                \"type\": \"mrkdwn\",\n                \"text\": \"Problem Number: [*{{ event()['display_id'] }}*] \\n Problem ID: [ {{ event()['event.id'] }} ] \\n [ {{ event()['event.name'] }} ]\"\n            }\n        },\n        {\n            \"type\": \"divider\"\n        },\n        {\n            \"type\": \"actions\",\n            \"elements\": [\n                {\n                    \"type\": \"button\",\n                    \"text\": {\n                        \"type\": \"plain_text\",\n                        \"text\": \"View Problem\",\n                        \"emoji\": true\n                    },\n                    \"value\": \"problem\",\n                    \"url\": \"{{ environment().url }}/ui/apps/dynatrace.classic.problems/#problems/problemdetails;pid={{ event()['event.id'] }}\"\n                },\n                {\n                    \"type\": \"button\",\n                    \"text\": {\n                        \"type\": \"plain_text\",\n                        \"text\": \"View Workflow Execution\",\n                        \"emoji\": true\n                    },\n                    \"value\": \"workflow\",\n                    \"url\": \"{{ environment().url }}/ui/apps/dynatrace.automations/executions/{{ execution().id }}\"\n                }\n            ]\n        }\n    ]\n}        ",
+        "reaction": [],
+        "connection": "vu9U3hXa3q0AAAABAB5hcHA6ZHluYXRyYWNlLnNsYWNrOmNvbm5lY3Rpb24ABnRlbmFudAAGdGVuYW50ACQwYTUwODZiMy04ZGQ1LTM4NDUtYjIzMy0wODY5YmIyOTk2ZWW-71TeFdrerQ",
+        "workflowID": "{{ execution().workflow.id }}",
+        "channelType": "expression",
+        "executionID": "{{ execution().id }}",
+        "executionDate": "{{ execution().started_at }}",
+        "appendToThread": false,
+        "selectedRequestType": 0,
+        "attachmentToggleValue": "none"
+      },
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "predecessors": [
+        "js_set_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_set_parameters": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_set_parameters\")['SLACK_CHANNEL'] is defined }}"
+      }
+    }
+  },
+  "description": "",
+  "actor": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "owner": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "ownerType": "USER",
+  "isPrivate": true,
+  "trigger": {
+    "eventTrigger": {
+      "isActive": true,
+      "filterQuery": "event.kind == \"DAVIS_PROBLEM\" AND (event.category == \"CUSTOM_ALERT\") AND (matchesPhrase(event.name,\"EasyTravel Journey Amount\"))",
+      "uniqueExpression": "{{ event()[\"event.id\"] }}-{{ \"open\" if event()[\"event.status_transition\"] in (\"CREATED\", \"UPDATED\", \"REOPENED\", \"REFRESHED\") else \"resolved\" }}-{{ event()[\"dt.davis.last_reopen_timestamp\"] }}",
+      "triggerConfiguration": {
+        "type": "davis-problem",
+        "value": {
+          "categories": {
+            "custom": true
+          },
+          "entityTags": {},
+          "customFilter": "matchesPhrase(event.name,\"EasyTravel Journey Amount\")",
+          "onProblemClose": true,
+          "entityTagsMatch": "all"
+        }
+      }
+    }
+  },
+  "schemaVersion": 3
+}

@@ -1,0 +1,220 @@
+{
+  "id": "d6ca7952-c04c-4c40-b12d-b691b0c0d639",
+  "title": "Workflow Essentials - Config Generator",
+  "tasks": {
+    "js_get_allow_list": {
+      "name": "js_get_allow_list",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Get the current allow list settings object via SDK",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { settingsObjectsClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  \n  // get the outbound connection allow list settings object using SDK\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#createcredentials\n  const config = {\n    schemaIds: \"builtin:dt-javascript-runtime.allowed-outbound-connections\"\n  }\n  \n  const data = await settingsObjectsClient.getSettingsObjects(config);\n\n  // check if data items is an empty array, indicating a new environment without a setting\n  if(data['items'].length == 0) {\n    console.log(\"No settings object found, creating a new one.\");\n    // create new setting object body\n    const new_setting = {\n      value: {\n        allowedOutboundConnections: {\n          enforced: true,\n          hostList: []\n        }\n      },\n    }\n    // return new setting and indicate new setting was created\n    return { setting: new_setting, new: true }\n  }\n\n  // setting exists\n\n  // validate that the settings object was returned and that enforcement is true\n  if(data['items'][0]['value']['allowedOutboundConnections']['enforced'] === undefined) {\n    console.log(\"Error getting the settings object results for allowedOutboundConnections!\");\n    throw new Error('Error getting the settings object results for allowedOutboundConnections!');\n  } else if (data['items'][0]['value']['allowedOutboundConnections']['enforced'] == false) {\n    console.log(\"allowedOutboundConnections enforcement is false, adding rules to configuration is unnecessary.\");\n    throw new Error('allowedOutboundConnections enforcement is false, adding rules to configuration is unnecessary.');\n  }\n\n  return { setting: data['items'][0], new: false };\n}"
+      },
+      "active": true,
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "predecessors": [
+        "js_set_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_set_parameters": "SUCCESS"
+        }
+      }
+    },
+    "js_put_allow_list": {
+      "name": "js_put_allow_list",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Put the new allow list settings object via SDK if changed",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { settingsObjectsClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst SETTINGS_TASK = 'js_update_allow_list';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n\n  // settings object from previous task\n  const setting_result = await ex.result(SETTINGS_TASK);\n  let setting = setting_result['setting'];\n  const new_setting = setting_result['new'];\n\n  // handle existing new setting first, using postSettingsObjects\n  if(new_setting == true) {\n\n    // set the settings object payload\n    const setting_body = {\n      \"schemaId\": \"builtin:dt-javascript-runtime.allowed-outbound-connections\",\n      \"scope\": \"environment\",\n      \"value\": setting['value']\n    }\n\n    // validate the settings object\n    const validate = await settingsObjectsClient.postSettingsObjects({\n      body: [setting_body],\n      validateOnly: true\n    });\n  \n    // validate was successful, put the settings object\n    let response;\n    if(validate[0]['code'] == 200) {\n      response = await settingsObjectsClient.postSettingsObjects({\n        body: [setting_body],\n        validateOnly: false\n      });\n    } else {\n      throw new Error('Validation was unsuccessful! Response Code: ' + validate[0]['code']);\n    }\n  \n    return { setting: setting, code: response[0]['code'] };\n    \n  } else {\n  \n    // validate the settings object\n    const validate = await settingsObjectsClient.putSettingsObjectByObjectId({\n      objectId: setting['objectId'],\n      body: { value: setting['value'] },\n      validateOnly: true\n    });\n  \n    // validate was successful, put the settings object\n    let response;\n    if(validate['code'] == 200) {\n      response = await settingsObjectsClient.putSettingsObjectByObjectId({\n        objectId: setting['objectId'],\n        body: { value: setting['value'] },\n        validateOnly: false\n      });\n    } else {\n      throw new Error('Validation was unsuccessful! Response Code: ' + validate['code']);\n    }\n  \n    return { setting: setting, code: response['code'] };\n    \n  }\n}"
+      },
+      "active": true,
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "predecessors": [
+        "js_update_allow_list"
+      ],
+      "conditions": {
+        "states": {
+          "js_update_allow_list": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_update_allow_list\")['updated'] == true }}"
+      }
+    },
+    "js_set_parameters": {
+      "name": "js_set_parameters",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Set the parameters for this workflow",
+      "input": {
+        "script": "import { CredentialsScope, CredentialsScopesItem, CredentialsType } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nexport default async function () {\n\n  let PARAMETERS = {\n\n    CREDENTIAL: {\n\n      // TOKEN_NAME - the name of the Dynatrace API access token\n      TOKEN_NAME: \"workflow-essentials-metric-ingest\", // i.e. TOKEN_NAME: \"workflow-essentials-metric-ingest\"\n\n      // TOKEN_SCOPES - an array of double quoted string token scopes\n      TOKEN_SCOPES: [\"metrics.read\",\"metrics.write\",\"metrics.ingest\"], // i.e. TOKEN_SCOPES: [\"metrics.read\",\"metrics.write\",\"metrics.ingest\"];\n\n      // CREDENTIAL_NAME - the name of the Dynatrace credential vault entry\n      CREDENTIAL_NAME: \"workflow-essentials-metric-ingest\", // i.e. CREDENTIAL_NAME: \"workflow-essentials-metric-ingest\"\n\n      // CREDENTIAL_SCOPES\n      CREDENTIAL_SCOPES: [CredentialsScopesItem.AppEngine],\n\n      // CREDENTIAL_ACCESS\n      CREDENTIAL_ACCESS: false \n    },\n\n    ALLOW_LIST: {\n\n      // ALLOW - an array of double quoted string hosts/domains to allow outbound connections for\n      ALLOW: [\"api.status.io\",\"webhook.site\",\"*.amazonaws.com\",\"*.sprint.dynatracelabs.com\",\"*.dynatrace.com\",\"slack.com\",\"files.slack.com\"]\n      \n    },\n\n    SLACK: {\n\n      // CONNECTION NAME - the name of the Slack Connection\n      CONNECTION_NAME: \"workflow-essentials-demo\",\n\n      // CONNECTION_TOKEN - the Bot User OAuth Token of the Slack App\n      CONNECTION_TOKEN: \"xoxb-2154123498567-7658790070372-mN64DH5QQH9Tklol5J3BS77T\"\n      \n    }\n  \n  }\n  \n  return PARAMETERS;\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 1
+      },
+      "predecessors": []
+    },
+    "js_create_credential": {
+      "name": "js_create_credential",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Create a new credential vault entry via SDK",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { credentialVaultClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\nimport { CredentialsScope, CredentialsScopesItem, CredentialsType } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst TOKEN_TASK = 'js_create_access_token';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n\n  // declare new variables to easily access the parameters within this task\n  const CREDENTIAL_NAME = parameters['CREDENTIAL']['CREDENTIAL_NAME'];\n  const CREDENTIAL_SCOPES = parameters['CREDENTIAL']['CREDENTIAL_SCOPES'];\n  const CREDENTIAL_ACCESS = parameters['CREDENTIAL']['CREDENTIAL_ACCESS'];\n\n  // get API token from previous task result\n  const token_result = await ex.result(TOKEN_TASK);\n  const token_id = token_result['token']['id'];\n  const token_string = token_result['token']['token'];\n\n  console.log(\"token id: \" + token_id);\n  \n  // create the credential vault entry\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#createcredentials\n  const data = await credentialVaultClient.createCredentials({\n    body: {\n      name: CREDENTIAL_NAME,\n      scopes: CREDENTIAL_SCOPES,\n      ownerAccessOnly: CREDENTIAL_ACCESS,\n      allowContextlessRequests: true,\n      type: \"TOKEN\",\n      token: token_string\n    },\n  });\n\n  return { credential: data['id'] };\n}"
+      },
+      "active": true,
+      "position": {
+        "x": -1,
+        "y": 4
+      },
+      "predecessors": [
+        "js_create_access_token"
+      ],
+      "conditions": {
+        "states": {
+          "js_create_access_token": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_create_access_token\")['token'] is defined }}"
+      }
+    },
+    "js_update_allow_list": {
+      "name": "js_update_allow_list",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Add allow list parameter hosts to host list if missing",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst SETTINGS_TASK = 'js_get_allow_list';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  // allow list\n  const ALLOW = parameters['ALLOW_LIST']['ALLOW'];\n\n  // settings object from previous task\n  const setting_result = await ex.result(SETTINGS_TASK);\n  let setting = setting_result['setting'];\n  let host_list = setting['value']['allowedOutboundConnections']['hostList'];\n  const new_setting = setting_result['new'];\n\n  let updated = false;\n  // loop through ALLOW array parameter\n  for(let a=0; a<ALLOW.length; a++) {\n    let allow = ALLOW[a];\n    if(!host_list.includes(allow)) {\n      console.log(\"Allow parameter host not found in host list: \" + allow);\n      host_list.push(allow);\n      console.log(\"Allow parameter added to host list: \" + allow);\n      updated = true;\n    } else {\n      console.log(\"Allow parameter host found in host list: \" + allow);\n    }\n  }\n\n  setting['value']['allowedOutboundConnections']['hostList'] = host_list;\n\n  return { setting: setting, updated: updated, new: new_setting };\n}"
+      },
+      "position": {
+        "x": 0,
+        "y": 3
+      },
+      "predecessors": [
+        "js_get_allow_list"
+      ],
+      "conditions": {
+        "states": {
+          "js_get_allow_list": "SUCCESS"
+        }
+      }
+    },
+    "js_check_access_token": {
+      "name": "js_check_access_token",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Check if the API token already exists",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { getCurrentUserDetails } from '@dynatrace-sdk/app-environment';\nimport { accessTokensApiTokensClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n\n  // declare new variables to easily access the parameters within this task\n  const TOKEN_NAME = parameters['CREDENTIAL']['TOKEN_NAME'];\n  const TOKEN_SCOPES = parameters['CREDENTIAL']['TOKEN_SCOPES'];\n\n  // get current user of workflow\n  const user_details = getCurrentUserDetails(); // returns id, name, email in JSON format\n  const user_email = user_details['email']; // get the user email address, that's what's used for the token owner\n\n  // declare the token selector string, starting with the owner email address\n  let token_selector = 'owner(\"' + user_email + '\")';\n\n  // process the token scopes array and create a string\n  // i.e. ,scopes(\"metrics.read\",\"metrics.write\",\"metrics.ingest\")\n  let selector_scopes = \"\";\n  let scopes = \"\";\n  if(TOKEN_SCOPES.length > 0) {\n    selector_scopes = ',scope('; // scopes defined, create prefix\n    for(let s = 0; s < TOKEN_SCOPES.length; s++) {\n      scopes = scopes + '\"' + TOKEN_SCOPES[s] + '\"'; // add scope as double quoted string\n      if(s != TOKEN_SCOPES.length - 1){\n        scopes = scopes + ','; // not end of array, append to it\n      }\n    }\n    selector_scopes = selector_scopes + scopes + ')';\n  }\n  \n  // add the selector scope to the token selector\n  token_selector = token_selector + selector_scopes;\n\n  // create the listApiTokens config\n  let list_config = {\n    apiTokenSelector: token_selector,\n    fields: '+scopes'\n  }\n\n  // get the list of API access tokens that match criteria\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#listapitokens\n  const data =\n  await accessTokensApiTokensClient.listApiTokens(list_config);\n  const tokens = data['apiTokens']; // array of apiTokens\n\n  let token_exists = false;\n  let token_id = \"\";\n  // loop through tokens and check name and scopes\n  for(let a = 0; a < tokens.length; a++) {\n    if(tokens[a]['name'] == TOKEN_NAME) {\n      // matches token name, now check scopes\n      if(tokens[a]['scopes'].toString() == TOKEN_SCOPES.toString()) {\n        token_exists = true;\n        token_id = tokens[a]['id']; // capture the token id\n      }\n    }\n  }\n\n  if(token_exists) {\n    console.log(\"Token already exists.  Delete the token manually and re-run the workflow to generate a new token and store the credential.\");\n    console.log(\"Existing Token ID: \" + token_id);\n    return { token_exists: token_exists, token_id: token_id }\n  } else {\n    console.log(\"Existing token not found.\");\n    return { token_exists: token_exists, token_id: token_id }\n  }\n\n\n\n\n  \n}"
+      },
+      "active": true,
+      "position": {
+        "x": -1,
+        "y": 2
+      },
+      "predecessors": [
+        "js_set_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_set_parameters": "OK"
+        }
+      }
+    },
+    "js_create_access_token": {
+      "name": "js_create_access_token",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Create a new API token via SDK",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { accessTokensApiTokensClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n\n  // declare new variables to easily access the parameters within this task\n  const TOKEN_NAME = parameters['CREDENTIAL']['TOKEN_NAME'];\n  const TOKEN_SCOPES = parameters['CREDENTIAL']['TOKEN_SCOPES'];\n\n  // create the API access token with token scopes\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#createapitoken\n  const data =\n  await accessTokensApiTokensClient.createApiToken({\n    body: { name: TOKEN_NAME, scopes: TOKEN_SCOPES },\n  });\n\n  return { token: data };\n}"
+      },
+      "active": true,
+      "position": {
+        "x": -1,
+        "y": 3
+      },
+      "predecessors": [
+        "js_check_access_token"
+      ],
+      "conditions": {
+        "states": {
+          "js_check_access_token": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_check_access_token\")['token_exists'] == false }}"
+      }
+    },
+    "js_add_slack_connection": {
+      "name": "js_add_slack_connection",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Post the new Slack connection settings object via SDK",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { settingsObjectsClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  const SLACK = parameters['SLACK'];\n\n  // set the Slack settings object payload\n  const slack_setting = {\n    \"schemaId\": \"app:dynatrace.slack:connection\",\n    \"schemaVersion\": \"0.0.13\",\n    \"scope\": \"environment\",\n    \"value\": {\n      \"name\": SLACK['CONNECTION_NAME'], \n      \"token\": SLACK['CONNECTION_TOKEN']\n    }\n  }\n\n  // validate the settings object\n  const validate = await settingsObjectsClient.postSettingsObjects({\n    body: [slack_setting],\n    validateOnly: true\n  });\n\n  console.log(\"Slack setting validation response code: \" + validate[0]['code']);\n\n  // validate was successful, put the settings object\n  var response;\n  if(validate[0]['code'] == 200) {\n    response = await settingsObjectsClient.postSettingsObjects({\n      body: [slack_setting],\n      validateOnly: false\n    });\n  } else {\n    throw new Error('Validation was unsuccessful! Response Code: ' + validate[0]['code']);\n  }\n\n  return { response: response[0] };\n\n\n\n\n  \n}"
+      },
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "predecessors": [
+        "js_check_slack_connections",
+        "js_put_allow_list"
+      ],
+      "conditions": {
+        "states": {
+          "js_put_allow_list": "SUCCESS",
+          "js_check_slack_connections": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_check_slack_connections\")['connection_exists'] == false }}"
+      },
+      "waitBefore": 30
+    },
+    "js_get_slack_connections": {
+      "name": "js_get_slack_connections",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Get the current Slack connections settings objects via SDK",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\nimport { settingsObjectsClient } from \"@dynatrace-sdk/client-classic-environment-v2\";\n\nconst PARAMETERS_TASK = 'js_set_parameters';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  \n  // get the outbound connection allow list settings object using SDK\n  // https://developer.dynatrace.com/develop/sdks/client-classic-environment-v2/#createcredentials\n  const config = {\n    schemaIds: \"app:dynatrace.slack:connection\"\n  }\n  \n  const data = await settingsObjectsClient.getSettingsObjects(config);\n\n  return { connections: data['items'] };\n}"
+      },
+      "active": true,
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "predecessors": [
+        "js_set_parameters"
+      ],
+      "conditions": {
+        "states": {
+          "js_set_parameters": "SUCCESS"
+        }
+      }
+    },
+    "js_check_slack_connections": {
+      "name": "js_check_slack_connections",
+      "action": "dynatrace.automations:run-javascript",
+      "description": "Check if the desired Slack connection already exists",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\n\nconst PARAMETERS_TASK = 'js_set_parameters';\nconst CONNECTIONS_TASK = 'js_get_slack_connections';\n\nexport default async function ({ execution_id }) {\n  \n  // get parameters from previous tasks\n  // execution\n  const ex = await execution(execution_id);\n  // parameters\n  const parameters = await ex.result(PARAMETERS_TASK);\n  const SLACK = parameters['SLACK'];\n  // slack connections\n  const connections_result = await ex.result(CONNECTIONS_TASK);\n  const connections = connections_result['connections'];\n\n  // connection does not exist until found\n  let connection_exists = false;\n\n  // if connections list is empty, connection does not exist\n  if(connections.length == 0) {\n    console.log(\"Connections list is empty.\");\n    return { connection_exists: connection_exists };\n  }\n\n  // loop through connections list and check if connection exists\n  for(var c=0; c<connections.length; c++) {\n    if(connections[c]['value']['name'] == SLACK['CONNECTION_NAME']) {\n      console.log(\"Connection name found in connections list.\");\n      connection_exists = true;\n      return { connection_exists: connection_exists };\n    }\n  }\n\n  // if connection not found in connections list, return connection_exists: false\n  return { connection_exists: connection_exists };\n}"
+      },
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "predecessors": [
+        "js_get_slack_connections"
+      ],
+      "conditions": {
+        "states": {
+          "js_get_slack_connections": "SUCCESS"
+        },
+        "custom": "{{ result(\"js_get_slack_connections\")['connections'] is defined }}"
+      }
+    }
+  },
+  "description": "",
+  "actor": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "owner": "bb76f07e-5800-412d-a53e-2ef79a89b073",
+  "ownerType": "USER",
+  "isPrivate": true,
+  "trigger": {},
+  "schemaVersion": 3
+}
