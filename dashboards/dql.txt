@@ -1,0 +1,3 @@
+            fetch logs
+| filter matchesPhrase(log.source, "/var/log/messages") and matchesValue(content, "*Failed to initialize credentials using keytab [MEMORY:/etc/krb5.keytab]:*") and matchesPhrase(UNIXPROD, "105070") or
+matchesPhrase(log.source, "/var/log/messages") and matchesValue(content, "*Failed to initialize credentials using keytab [MEMORY:/etc/krb5.keytab]:*") and matchesPhrase(unixprod, "105070") | summarize count = count(), by:{application_id,host.name,environment}
