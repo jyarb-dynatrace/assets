@@ -1,0 +1,122 @@
+2025-08-08T12:43:40.949Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:43:40.989Z DEBUG [PLUGIN] Searching for configuration file
+2025-08-08T12:43:40.989Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/Dynatrace/platformApps/audit-logs-viewer/app.config.json
+2025-08-08T12:43:40.989Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's root directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+  
+  The configuration "root" is deprecated and will be removed in dt-app v1.0. To specify the root of your project, please use the flag `--cwd` instead.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:43:40.992Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:43:43.191Z DEBUG [PLUGIN] Searching for configuration file
+2025-08-08T12:43:43.192Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/Dynatrace/platformApps/audit-logs-viewer/app.config.json
+2025-08-08T12:43:43.194Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's root directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+  
+  The configuration "root" is deprecated and will be removed in dt-app v1.0. To specify the root of your project, please use the flag `--cwd` instead.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:43:43.196Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:43:45.210Z DEBUG [PLUGIN] Searching for configuration file
+2025-08-08T12:43:45.210Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/Dynatrace/platformApps/audit-logs-viewer/app.config.json
+2025-08-08T12:43:45.210Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's root directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+  
+  The configuration "root" is deprecated and will be removed in dt-app v1.0. To specify the root of your project, please use the flag `--cwd` instead.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:43:45.212Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:39.425Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:39.466Z DEBUG [PLUGIN] Searching for configuration file
+2025-08-08T12:45:39.467Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/Dynatrace/platformApps/audit-logs-viewer/app.config.json
+2025-08-08T12:45:39.467Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's root directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+  
+  The configuration "root" is deprecated and will be removed in dt-app v1.0. To specify the root of your project, please use the flag `--cwd` instead.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:39.478Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:42.150Z DEBUG [PLUGIN] Searching for configuration file
+2025-08-08T12:45:42.150Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/Dynatrace/platformApps/audit-logs-viewer/app.config.json
+2025-08-08T12:45:42.151Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's root directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+  
+  The configuration "root" is deprecated and will be removed in dt-app v1.0. To specify the root of your project, please use the flag `--cwd` instead.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:42.153Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:44.441Z DEBUG [PLUGIN] Searching for configuration file
+2025-08-08T12:45:44.441Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/Dynatrace/platformApps/audit-logs-viewer/app.config.json
+2025-08-08T12:45:44.441Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's root directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+  
+  The configuration "root" is deprecated and will be removed in dt-app v1.0. To specify the root of your project, please use the flag `--cwd` instead.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2025-08-08T12:45:44.443Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  The configuration "icon" is deprecated and will be removed in dt-app v1.0. To specify an icon please use "app.icon".
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
