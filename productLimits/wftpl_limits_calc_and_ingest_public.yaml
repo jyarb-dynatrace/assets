@@ -1,0 +1,2112 @@
+metadata:
+  version: "1"
+  dependencies:
+    apps:
+      - id: dynatrace.automations
+        version: ^1.2217.1
+  inputs: []
+workflow:
+  title: limits calc and ingest public 2.0
+  tasks:
+    ingest:
+      name: ingest
+      description: Build a custom task running js Code
+      action: dynatrace.automations:run-javascript
+      input:
+        script: |-
+          import { executionsClient } from '@dynatrace-sdk/client-automation';
+
+          export default async function ({ execution_id }) {
+
+            const limits = {executionId: execution_id, id: 'summary'};
+            const data = await executionsClient.getTaskExecutionResult(limits);
+            console.log(data);
+            const updatedArray = data.map(obj => ({
+              ...obj,
+              "event.type": 'dynatrace.limits'
+            }));
+            
+            console.log(updatedArray);
+
+            const ingestResult = await fetch(
+              "/platform/classic/environment-api/v2/bizevents/ingest",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedArray),
+              }
+            );
+            console.log(ingestResult);
+
+            return updatedArray;
+          }
+      position:
+        x: 0
+        y: 5
+      predecessors:
+        - summary
+      conditions:
+        states:
+          summary: OK
+    cleanup:
+      name: cleanup
+      description: Build a custom task running js Code
+      action: dynatrace.automations:run-javascript
+      input:
+        script: >-
+          import { executionsClient } from '@dynatrace-sdk/client-automation';
+
+
+          export default async function ({ execution_id }) {
+
+            const config = {executionId: execution_id, id: 'get_limits'}
+            const limitsResult = await executionsClient.getTaskExecutionResult(config);
+
+            // Collect all limits from "get_limits"
+            const final = limitsResult.filter(elem => {
+              // Check for null or undefined
+              if (elem == null) return false;
+
+              // Check for empty objects
+              if (typeof elem === 'object' && Object.keys(elem).length === 0) return false;
+
+              console.log(elem);
+
+              return true;
+            });
+
+            console.log(final);
+
+            return final;
+          }
+      position:
+        x: 0
+        y: 3
+      predecessors:
+        - get_limits
+      conditions:
+        states:
+          get_limits: OK
+    summary:
+      name: summary
+      description: Build a custom task running js Code
+      action: dynatrace.automations:run-javascript
+      input:
+        script: |-
+          import { execution } from '@dynatrace-sdk/automation-utils';
+
+          export default async function ({ executionId }) {
+            const ex = await execution(executionId);
+            const cleanup = await ex.result('cleanup');
+            
+            return cleanup; 
+          }
+      customSampleResult:
+        - limit: disabled
+          property: OperationMode
+          schemaId: builtin:internal.rum.uem-signal-message-blocking
+        - limit: 0
+          property: percentageOfBlockedUserSessions
+          schemaId: builtin:internal.rum.uem-signal-message-blocking
+        - limit: 1
+          property: ServerNodesToBlock
+          schemaId: builtin:internal.rum.uem-signal-message-blocking
+        - limit: []
+          property: ipList
+          schemaId: builtin:internal.rum.uem-signal-message-blocking
+        - limit: []
+          property: sessionIdsToBlock
+          schemaId: builtin:internal.rum.uem-signal-message-blocking
+        - limit: 3500
+          property: minOverloadPreventionLimit
+          schemaId: builtin:internal.rum.overload-prevention-limit-range-control
+        - limit: 50000
+          property: maxOverloadPreventionLimit
+          schemaId: builtin:internal.rum.overload-prevention-limit-range-control
+        - limit: true
+          property: enabled
+          schemaId: builtin:internal.settings.tombstone.cleanup
+        - limit: 30
+          property: retentionTime
+          schemaId: builtin:internal.settings.tombstone.cleanup
+        - limit:
+            - open_pipeline_config
+          property: scopes
+          schemaId: builtin:internal.settings.tombstone.cleanup
+        - limit: true
+          property: beaconProtocol3Enabled
+          schemaId: builtin:internal.rum.beacon-processing
+        - limit: false
+          property: beaconProtocol4Enabled
+          schemaId: builtin:internal.rum.beacon-processing
+        - limit: false
+          property: beaconProtocol4EndpointSfmEnabled
+          schemaId: builtin:internal.rum.beacon-processing
+        - limit: 1
+          property: minJsAgentVersion
+          schemaId: builtin:internal.rum.beacon-processing
+        - limit: 1
+          property: minMobileAgentVersion
+          schemaId: builtin:internal.rum.beacon-processing
+        - limit: 1
+          property: cookieSuffix
+          schemaId: builtin:internal.rum.web.cookie-suffix
+        - limit: 5
+          property: detectionPeriod
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 100000
+          property: genericAmountDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 2500000
+          property: staticAmountDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 2000000
+          property: staticLowerThresholdDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 30000000
+          property: genericTimebasedMaxEntityCountDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 30000000
+          property: staticTimebasedMaxEntityCountDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 180
+          property: genericMaxEntityCountDeleteDaysDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: 180
+          property: staticMaxEntityCountDeleteDaysDefault
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: []
+          property: genericTypeSettings
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: []
+          property: staticTypeSettings
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: []
+          property: genericTypeJunkRuleSettings
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: []
+          property: staticTypeJunkRuleSettings
+          schemaId: builtin:internal.monitoredentities.explosion.detection
+        - limit: false
+          property: maxEventsPerMinuteLimitEnabled
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 1000000
+          property: maxEventsPerMinute
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: false
+          property: maxSfmEventsPerMinuteLimitEnabled
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 1000
+          property: maxSfmEventsPerMinute
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 50000
+          property: MaxUploadRequestEventCount
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 50
+          property: MaxUploadRequestInTransferCount
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 524288
+          property: MaxContentLength_Bytes
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 2500
+          property: MaxAttributeValueLength_Bytes
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 10
+          property: MaxUploadRequestPositionUncompressedSize_MBytes
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 250
+          property: maxAttributeCount
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 32
+          property: MaxAttributeValuesCount
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 35
+          property: Retention_Days
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 10000000
+          property: GrailMaxRecordsCountLimit
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: true
+          property: ReportDeploymentName
+          schemaId: builtin:internal.indexed-logstorage-settings
+        - limit: 15
+          property: metadataForwardingIntervalMinutes
+          schemaId: builtin:internal.grail.metrics.forwarding
+        - limit: 1
+          property: tenantWeight
+          schemaId: builtin:internal.tenantweight.tenant-weight-settings
+        - limit:
+            expirationTimeDays: 7
+            queryOverlapMinutes: 5
+            updatePeriodMinutesMax: 15
+            updatePeriodMinutesMin: 14
+            dqlDataDescriptorsLimit: 100000
+            newConfigUpdatePeriodSecondsMax: 15
+            newConfigUpdatePeriodSecondsMin: 0
+          property: dataDescriptorConfig
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit:
+            staticConfigsLimit: 100
+            adaptiveConfigsLimit: 100
+            seasonalConfigsLimit: 100
+            staticDimensionsLimit: 1000
+            adaptiveDimensionsLimit: 1000
+            seasonalDimensionsLimit: 500
+          property: advancedModelLimits
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 2
+          property: defaultQueryOffset
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 10000
+          property: totalAlertingConfigLimit
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 10000000
+          property: alertingQueuesSoftLimit
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 100000000
+          property: alertingQueuesHardLimit
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 100000
+          property: tenantDimensionsLimit
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 200
+          property: maxNumOfViolationsPerConfig
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: 0.99
+          property: quantileForThresholdService
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: []
+          property: writeAlertingLimits
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: []
+          property: readAlertingLimits
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit:
+            grailFetchTimeout: 10
+            grailRequestTimeout: 10000
+          property: grailSettings
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit:
+            dqlExecutionInterval: 1
+            metricSelectorExecutionInterval: 1
+          property: bulkAlertingSettings
+          schemaId: builtin:internal.anomaly-detection.alerting
+        - limit: false
+          property: enabled
+          schemaId: builtin:internal.settings.scope.cleanup
+        - limit: []
+          property: scopes
+          schemaId: builtin:internal.settings.scope.cleanup
+        - limit: true
+          property: enableTransitionFlow
+          schemaId: builtin:internal.tenant-appfw-preferences
+        - limit: 14
+          property: maxFDIQueryDurationInMonths
+          schemaId: builtin:internal.fdi.persistence
+        - limit: []
+          property: blockRules
+          schemaId: builtin:internal.metric.dimensionblocklist
+        - limit: false
+          property: gen2EventForwardingEnabled
+          schemaId: builtin:internal.rum.gen2-event-forwarding
+        - limit:
+            enableJsErrorExtractor: false
+            enableCustomErrorExtractor: false
+            enableResourceTimingExtractor: false
+            enableViewChangeEventExtractor: false
+            enableCspRuleViolationExtractor: false
+            enableResourceTimingHttpErrorExtractor: false
+          property: webEventExtractors
+          schemaId: builtin:internal.rum.gen2-event-forwarding
+        - limit:
+            enableMobileCrashExtractor: false
+            enableMobileCustomErrorExtractor: false
+            enableMobileHttpRequestErrorExtractor: false
+            enableMobileGenericRequestErrorExtractor: false
+          property: mobileEventExtractors
+          schemaId: builtin:internal.rum.gen2-event-forwarding
+        - limit:
+            enableSfmSizeEstimation: false
+          property: sfmSizeEstimation
+          schemaId: builtin:internal.rum.gen2-event-forwarding
+        - limit: {}
+          property: targetBucket
+          schemaId: builtin:internal.rum.gen2-event-forwarding
+        - limit:
+            delay: 30
+            bigJumpRatio: 1.4
+            cutPercentages:
+              - 5
+              - 10
+              - 15
+              - 20
+              - 25
+              - 30
+              - 35
+              - 40
+              - 45
+              - 50
+            maxCriticalRatio: 0.05
+            varianceInflationFactor: 2
+            slidingWindowHistorySize: 15
+            significanceLevelRecovery: 0.01
+            intraClusterCorrelationCoefficient: 0.5
+          property: responseTime
+          schemaId: builtin:internal.anomaly-detection.databases
+        - limit:
+            delay: 30
+            bigJumpRatio: 1.4
+            cutPercentages:
+              - 5
+              - 10
+              - 15
+              - 20
+              - 25
+              - 30
+              - 35
+              - 40
+              - 45
+              - 50
+            maxCriticalRatio: 0.05
+            varianceInflationFactor: 2
+            slidingWindowHistorySize: 15
+            significanceLevelBaseline: 0.01
+            significanceLevelRecovery: 0.01
+            varianceInflationFactorBaseline: 1
+            intraClusterCorrelationCoefficient: 0.5
+          property: failureRate
+          schemaId: builtin:internal.anomaly-detection.databases
+        - limit:
+            varianceInflationFactor: 5
+            slidingWindowHistorySize: 15
+            significanceLevelBaseline: 0.01
+            significanceLevelRecovery: 0.01
+            upperThresholdQuantileValue: 0.9
+            varianceInflationFactorBaseline: 5
+            intraClusterCorrelationCoefficient: 0.5
+          property: tenantLoad
+          schemaId: builtin:internal.anomaly-detection.databases
+        - limit:
+            dealertingTimeoutMinutes: 15
+            numConnectionFailuresDealertingThreshold: 0
+          property: databaseConnections
+          schemaId: builtin:internal.anomaly-detection.databases
+        - limit:
+            minimumPresenceRatio: 0.22
+          property: misc
+          schemaId: builtin:internal.anomaly-detection.databases
+        - limit:
+            maxActiveEvents: 15000
+            eventEnqueueLimit:
+              restockIntervalInMinutes: 60
+              maxNumberOfEventsInRefreshInterval: 300000
+            eventProcessingLimit:
+              restockIntervalInMinutes: 60
+              maxNumberOfEventsInRefreshInterval: 500000
+            eventDirectWriteLimit:
+              restockIntervalInMinutes: 60
+              maxNumberOfEventsInRefreshInterval: 500000
+          property: globalSettings
+          schemaId: builtin:internal.event.context-limit
+        - limit:
+            rum:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            other:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            restAPI:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            protobuf:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            synthetic:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            baselining:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            availability:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 200000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            metricEvents:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 200000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            clusterHealth:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 10000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 10000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 10000
+            legacyRestAPI:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            logMonitoring:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            kubernetesEvent:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            kubernetesAnomalyDetection:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            openPipelineDataExtraction:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+            localAgentEventIngestRestApi:
+              maxActiveEvents: 4000
+              eventEnqueueLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 100000
+              eventProcessingLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+              eventDirectWriteLimit:
+                restockIntervalInMinutes: 60
+                maxNumberOfEventsInRefreshInterval: 400000
+          property: contextLimitSettings
+          schemaId: builtin:internal.event.context-limit
+        - limit: 1
+          property: socketTimeout
+          schemaId: builtin:internal.notifications
+        - limit: 1
+          property: connectTimeout
+          schemaId: builtin:internal.notifications
+        - limit: 1
+          property: connectionRequestTimeout
+          schemaId: builtin:internal.notifications
+        - limit: true
+          property: enable
+          schemaId: builtin:internal.rum.host
+        - limit: 1000000
+          property: writeBufferTypeDrainLimit
+          schemaId: builtin:internal.stt
+        - limit: 1000000
+          property: limitedWriteBufferCapacity
+          schemaId: builtin:internal.stt
+        - limit:
+            taintedStringTruncationLimit: 4096
+            findingEventMaxNumberOfQuerySplits: 80
+            attackCandidateIngressThrottleLimit: 500
+            attackCandidateMaxNumberOfQuerySplits: 365
+            findingEventIngressThrottleLimitLayer1: 10
+            findingEventIngressThrottleLimitLayer2: 1
+            attackCandidateGrailExportThrottleLimit: 5000
+            flawAttackCandidateAggregationBatchSize: 1000
+            findingEventIngressThrottleWindowDuration: 30
+            attackCandidateIngressThrottleWindowDuration: 60
+            attackCandidateGrailExportThrottleWindowDuration: 60
+            securityProblemAttackCandidateAggregationBatchSize: 1000
+          property: attackDetectionConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            entryPointsUpdateInterval: 15
+            securityProblemCacheMaxSize: 15000
+            affectedEntitiesMetricsInterval: 15
+            securityProblemFlawSourcesLimit: 1000
+            managementZoneCalculationInterval: 15
+            relatedAttacksCalculationInterval: 15
+            affectedEntitiesCalculationInterval: 15
+            entityAssessmentCalculationInterval: 15
+            securityProblemManagementZonesLimit: 1000
+            securityProblemAffectedEntitiesLimit: 5000
+            securityProblemResolvedEntitiesLimit: 1000
+            thirdPartyMonitoringRuleReloadTimeout: 5
+            topologyAssessmentCalculationInterval: 15
+            securityProblemRemediableEntitiesLimit: 1000
+            securityProblemStatisticsWorkerRunInterval: 5
+            securityProblemRemediationProgressEntitiesLimit: 2000
+            thirdPartyMonitoringRuleEvaluationEntityAvailabilityDelay: 5
+          property: securityProblemPipelineConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            maxCandidatesPerColumn: 160
+            placeholderLookupCacheTime: 15
+            numberOfAffectedTagsHardLimit: 5000
+            numberOfAffectedTagsSoftLimit: 2000
+            numberOfManagementZonesHardLimit: 1000
+            numberOfManagementZonesSoftLimit: 750
+            numberOfAffectedEntitiesHardLimit: 5000
+            numberOfAffectedEntitiesSoftLimit: 2000
+          property: securityNotificationConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            MELastSeenWithinTimeframe: 5
+            UnifiedUsageReportWorkerInterval:
+              Interval: 1
+          property: usageSettingsConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            matchingBundleUpdateCheckInterval: 5
+            vulnerableFunctionInventorySnapshotCacheTimeoutInMinutes: 1
+          property: vulnerableFunctionConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            evaluationInterval: 5
+            monitoredEntitiesMaxAge: 60
+            previewReturnsMaxAgents: 20
+            previewConsidersMaxAgents: 10000
+            suggestionsConsidersMaxAgents: 10000
+          property: internalUnifiedMonitoringConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            entityArrayTruncationLimit: 5000
+            stateReportBulkExportInterval: 15
+          property: grailExportConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit:
+            securityProblemBatchSize: 50
+            numberOfSecurityProblemsPerPersistenceQuery: 100
+            numberOfConcurrentThreadsPerPersistenceQuery: 100
+          property: internalEntityAssessmentConfig
+          schemaId: builtin:internal.appsec-settings
+        - limit: 50
+          property: maxNumOfInternalEventExportQueries
+          schemaId: builtin:internal.fdi-rest-export
+        - limit: disabled
+          property: spanExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: metricExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: metricMetadataExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: eventExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: behavioralEventExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: experimentalLogExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: systemEventExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: true
+          property: securityEventExportEnabled
+          schemaId: builtin:internal.deus-data-export
+        - limit: false
+          property: enableFeatureLog
+          schemaId: builtin:internal.metric.ingest.log
+        - limit: 1
+          property: filterAgentType
+          schemaId: builtin:internal.metric.ingest.log
+        - limit: 1
+          property: filterAgentId
+          schemaId: builtin:internal.metric.ingest.log
+        - limit:
+            enabled: false
+          property: builtinDimension
+          schemaId: builtin:internal.metric.limits-alerts
+        - limit:
+            enabled: false
+          property: customDimension
+          schemaId: builtin:internal.metric.limits-alerts
+        - limit:
+            enabled: false
+          property: customMetric
+          schemaId: builtin:internal.metric.limits-alerts
+        - limit:
+            enabled: false
+          property: metricDimension
+          schemaId: builtin:internal.metric.limits-alerts
+        - limit: 1
+          property: containerRegistry
+          schemaId: builtin:internal.container-registry
+        - limit: []
+          property: refreshTimeoutOverrides
+          schemaId: builtin:internal.availability.alerting
+        - limit: 100000
+          property: maxSizePgi
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsPgi
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 1000
+          property: maxSizeCgi
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsCgi
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 1000
+          property: maxSizeHost
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsHost
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 1000
+          property: maxSizeEc2Instance
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsEc2Instance
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 1000
+          property: maxSizeAzureVm
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsAzureVm
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 1000
+          property: maxSizeAwsAvailabilityZone
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsAwsAvailabilityZone
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 1000
+          property: maxSizeAzureRegion
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit: 300
+          property: expireAfterAccessTimeoutSecondsAzureRegion
+          schemaId: builtin:internal.grail.enrichment.caches
+        - limit:
+            limitEnabled: false
+          property: loadlimit
+          schemaId: builtin:internal.ctc.soft-limit
+        - limit: 5
+          property: topologyEngineIntervalInMinutes
+          schemaId: builtin:internal.topologyengine.interval
+        - limit: []
+          property: limits
+          schemaId: builtin:internal.partition-limit-override
+        - limit: 2000
+          property: maxNumApplications
+          schemaId: builtin:internal.rum-limits-configuration
+        - limit: 20
+          property: maxNumConversionGoals
+          schemaId: builtin:internal.rum-limits-configuration
+        - limit:
+            maxRumMetricsPerTenant: 1000
+            maxRumMetricsPerApplication: 500
+          property: maxRumMetrics
+          schemaId: builtin:internal.rum-limits-configuration
+        - limit:
+            keyUserActionsLimit: 100
+            tenantKeyUserActionsLimit: 500
+          property: keyUserActionsLimit
+          schemaId: builtin:internal.rum-limits-configuration
+        - limit:
+            minifiedFilesMaxChars: 3000000
+            symbolZipExtractionLimitInMb: 500
+          property: sourceMapsSymbolFilesLimit
+          schemaId: builtin:internal.rum-limits-configuration
+        - limit:
+            maxNumberOfConditionsPerNamingRule: 5
+            maxNumberOfNamingRulesPerApplication: 250
+            maxNumberOfPlaceholdersPerApplication: 50
+            maxNumberOfProcessingStepsPerPlaceholder: 5
+          property: userActionNamingConfigV2Limit
+          schemaId: builtin:internal.rum-limits-configuration
+        - limit: 10000
+          property: maxEntitiesForIndividualQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: minEntitiesForRowQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 70
+          property: percentageEntityThresholdRowQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 5000
+          property: maxHashesForIndividualQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: minHashesForRowQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 70
+          property: percentageHashesThresholdRowQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 100
+          property: maxConditionsInDimensionFilter
+          schemaId: builtin:internal.metric.limits
+        - limit: 5000
+          property: maxMatchesInDimensionFilterCondition
+          schemaId: builtin:internal.metric.limits
+        - limit: 100000
+          property: maxDimensionHashesInOneQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 120
+          property: gracePeriodSchemalessMetricDeletion
+          schemaId: builtin:internal.metric.limits
+        - limit: 300
+          property: metaDataCacheRefreshSeconds
+          schemaId: builtin:internal.metric.limits
+        - limit: 2
+          property: metaDataShortCacheRefreshSeconds
+          schemaId: builtin:internal.metric.limits
+        - limit: 70
+          property: maintenanceTimeboxNormalSeconds
+          schemaId: builtin:internal.metric.limits
+        - limit: 50
+          property: maintenanceTimeboxUnderPressureSeconds
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: checkConsolidationEvenIfIdleIntervalMinutes
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: checkMaintenanceEvenIfIdleIntervalMinutes
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: rowQuerySafeChunkSize
+          schemaId: builtin:internal.metric.limits
+        - limit: 100000
+          property: rowQueryMaxChunkSize
+          schemaId: builtin:internal.metric.limits
+        - limit: 1024
+          property: rowQueryMaxChunkKilobytes
+          schemaId: builtin:internal.metric.limits
+        - limit: 15
+          property: minFinalMaintenanceIntervalMinutes
+          schemaId: builtin:internal.metric.limits
+        - limit: 100
+          property: maintenanceBulkMaxTimeslotsAgedPerIdResolution
+          schemaId: builtin:internal.metric.limits
+        - limit: 100
+          property: maintenanceBulkMaxRowsReadPerIdResolution
+          schemaId: builtin:internal.metric.limits
+        - limit: 1440
+          property: maintenanceBulkMaxSlotsConsolidatedPerId
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: maintenanceTimeboxConsolidationPerId
+          schemaId: builtin:internal.metric.limits
+        - limit: 10
+          property: migrationSafetyDelayMinutes
+          schemaId: builtin:internal.metric.limits
+        - limit: 80
+          property: maxThreadPoolUsagePercentPerQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 1000
+          property: maxThreadPoolUsageAbsolutePerQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 1073741824
+          property: maxTotalBytesPerQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 30
+          property: maxProblematicQueryPermits
+          schemaId: builtin:internal.metric.limits
+        - limit: 60000
+          property: queryThrottlingWaitTime
+          schemaId: builtin:internal.metric.limits
+        - limit: 200
+          property: queryThrottlingQueueLength
+          schemaId: builtin:internal.metric.limits
+        - limit: 100000
+          property: maxSchemalessMetrics
+          schemaId: builtin:internal.metric.limits
+        - limit: 2000000
+          property: maxSchemalessDataPointsExternal
+          schemaId: builtin:internal.metric.limits
+        - limit: 2000000
+          property: maxSchemalessDataPointsInternal
+          schemaId: builtin:internal.metric.limits
+        - limit: 10000
+          property: maxParallelismCassandraIndividualQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 2
+          property: parallelismRowQuery
+          schemaId: builtin:internal.metric.limits
+        - limit: 64
+          property: maxSelectorNestingLevel
+          schemaId: builtin:internal.metric.limits
+        - limit: 10000
+          property: maxDimensionHashesInOneQueryDynaHist
+          schemaId: builtin:internal.metric.limits
+        - limit: 1000
+          property: syncQueryTimeoutMs
+          schemaId: builtin:internal.metric.limits
+        - limit: true
+          property: hiddenEntityRemovalEnabled
+          schemaId: builtin:internal.metric.limits
+        - limit: true
+          property: evilQueryThrottlingEnabled
+          schemaId: builtin:internal.metric.limits
+        - limit: true
+          property: asyncTilesQueryEnabled
+          schemaId: builtin:internal.metric.limits
+        - limit: 32
+          property: filterTreeRestructureRecursionLimit
+          schemaId: builtin:internal.metric.limits
+        - limit: 200
+          property: dimensionsToDatapointLimitRatio
+          schemaId: builtin:internal.metric.limits
+        - limit: 5000
+          property: chartMaxMeIdsToQuery
+          schemaId: builtin:internal.tenant.limits
+        - limit: 2000
+          property: dashboardLimit
+          schemaId: builtin:internal.tenant.limits
+        - limit: 10000
+          property: credentialsLimit
+          schemaId: builtin:internal.tenant.limits
+        - limit: 10000
+          property: mbeansQueryLimit
+          schemaId: builtin:internal.tenant.limits
+        - limit: false
+          property: additionalSchemalessMetricsCheckBeforeGrailForwardingEnabled
+          schemaId: builtin:internal.metric.blocklist
+        - limit: false
+          property: alsoBlockMaintenance
+          schemaId: builtin:internal.metric.blocklist
+        - limit: false
+          property: alsoBlockQuery
+          schemaId: builtin:internal.metric.blocklist
+        - limit: []
+          property: metricKeys
+          schemaId: builtin:internal.metric.blocklist
+        - limit: []
+          property: timeseriesIDs
+          schemaId: builtin:internal.metric.blocklist
+        - limit: 4
+          property: numberOfOpenIngestWorkers
+          schemaId: builtin:internal.openingest.settings
+        - limit: 20000000
+          property: maxNumberOfTimeSeriesDataPoints
+          schemaId: builtin:internal.davis
+        - limit: 1
+          property: temporalFocusFactor
+          schemaId: builtin:internal.fdi
+        - limit: 1
+          property: observationFocusFactor
+          schemaId: builtin:internal.fdi
+        - limit: 5
+          property: maxExecutionTimeOfRuleEngineInMinutes
+          schemaId: builtin:internal.fdi
+        - limit: 180000
+          property: triggerAnalysisDelayMillis
+          schemaId: builtin:internal.fdi
+        - limit: 10
+          property: ruleRecursionDepthLimit
+          schemaId: builtin:internal.fdi
+        - limit: 1000
+          property: findingsGraphSizeLimit
+          schemaId: builtin:internal.fdi
+        - limit: 500
+          property: maxEntityGroupExpansionCount
+          schemaId: builtin:internal.fdi
+        - limit: 200
+          property: maxNumberOfServiceInstancesPerVerticalStack
+          schemaId: builtin:internal.fdi
+        - limit: 90
+          property: maxMergeTimeInMinutes
+          schemaId: builtin:internal.fdi
+        - limit: 10000
+          property: maxManagedProblems
+          schemaId: builtin:internal.fdi
+        - limit: 7
+          property: maxProblemManagerExecutionTimeInMinutes
+          schemaId: builtin:internal.fdi
+        - limit: 300000
+          property: minimumDurationSinceLastProcessRestart
+          schemaId: builtin:internal.fdi
+        - limit: 0
+          property: maxQueryTimeForEventQueueInMinutes
+          schemaId: builtin:internal.fdi
+        - limit: 60
+          property: maxActiveEventDurationInDays
+          schemaId: builtin:internal.fdi
+        - limit: true
+          property: allowProblemsWriteOperation
+          schemaId: builtin:internal.fdi
+        - limit: 1000
+          property: eventIngestEntityLimit
+          schemaId: builtin:internal.fdi
+        - limit: 20000
+          property: maxProblemEmailNtfcSubjectLength
+          schemaId: builtin:internal.fdi
+        - limit: 200000
+          property: maxIsmhEventReportQueueSize
+          schemaId: builtin:internal.fdi
+        - limit: false
+          property: allowCustomEmailBody
+          schemaId: builtin:internal.fdi
+        - limit: false
+          property: includeRootCauseEntityAttributesEvaluationInProblem
+          schemaId: builtin:internal.fdi
+        - limit: false
+          property: includePGRootCauseEntityEvaluationInProblem
+          schemaId: builtin:internal.fdi
+        - limit: 7
+          property: naturalEventMaxFutureOffsetInDays
+          schemaId: builtin:internal.fdi
+        - limit: 5
+          property: triggerEventMaxFutureOffsetInMinutes
+          schemaId: builtin:internal.fdi
+        - limit: 500
+          property: fetchAllProblemsLimit
+          schemaId: builtin:internal.fdi
+        - limit: 1000
+          property: fetchAllEventsLimit
+          schemaId: builtin:internal.fdi
+        - limit: false
+          property: includeEvidenceDataInNotification
+          schemaId: builtin:internal.fdi
+        - limit: 60
+          property: problemListAutoRefreshInSeconds
+          schemaId: builtin:internal.fdi
+        - limit: []
+          property: metricPrefixesToIgnoreFromChangepointResolution
+          schemaId: builtin:internal.fdi
+        - limit: 21600000
+          property: problemRefreshFrequencyInMillis
+          schemaId: builtin:internal.fdi
+        - limit: 100
+          property: problemVRPMaxNodesCount
+          schemaId: builtin:internal.fdi
+        - limit: 3
+          property: temporalFocusMaxFutureTriggerOffsetInMinutes
+          schemaId: builtin:internal.fdi
+        - limit: 1000
+          property: maxUniqueComplexFiltersInAlertingProfiles
+          schemaId: builtin:internal.fdi
+        - limit: 4078
+          property: rawIntegerMeasurementsFlushThreshold
+          schemaId: builtin:internal.deus-metric-session-config
+        - limit:
+            k8sEnrichmentMaxRules: 20
+            k8sEventTimeoutMinutes: 15
+            k8sEventSeriesTimeoutMinutes: 15
+          property: devops
+          schemaId: builtin:internal.cloud.kubernetes.tenant-internal
+        - limit: 1000000
+          property: entryLimit
+          schemaId: builtin:internal.configuration.cache
+        - limit: 60
+          property: expirationMinutes
+          schemaId: builtin:internal.configuration.cache
+        - limit: 2000
+          property: dbConnectionAlertLimit
+          schemaId: builtin:internal.anomaly-detection
+        - limit: 60000
+          property: baseliningShortLivingEntityLifetime
+          schemaId: builtin:internal.anomaly-detection
+        - limit: 600000
+          property: baseliningShortLivingEntityTimeout
+          schemaId: builtin:internal.anomaly-detection
+        - limit: 1
+          property: baseliningMonitoredEntitiesRefreshPeriod
+          schemaId: builtin:internal.anomaly-detection
+        - limit: 1
+          property: baseliningMonitoredEntitiesSettingsRefreshPeriod
+          schemaId: builtin:internal.anomaly-detection
+        - limit: 200000
+          property: baseliningMonitoredEntitiesLimit
+          schemaId: builtin:internal.anomaly-detection
+        - limit: 225
+          property: traceVolumePerConnectedGiBPerMinInKiB
+          schemaId: builtin:internal.atm-configuration
+        - limit: 1
+          property: extraIngestFactor
+          schemaId: builtin:internal.atm-configuration
+        - limit: 72000
+          property: traceVolumePerMinInKiB
+          schemaId: builtin:internal.atm-configuration
+        - limit:
+            delay: 30
+            bigJumpRatio: 1.4
+            cutPercentages:
+              - 5
+              - 10
+              - 15
+              - 20
+              - 25
+              - 30
+              - 35
+              - 40
+              - 45
+              - 50
+            maxCriticalRatio: 0.05
+            varianceInflationFactor: 2
+            slidingWindowHistorySize: 15
+            significanceLevelRecovery: 0.01
+            intraClusterCorrelationCoefficient: 0.5
+          property: responseTime
+          schemaId: builtin:internal.anomaly-detection.services
+        - limit:
+            delay: 30
+            bigJumpRatio: 1.4
+            cutPercentages:
+              - 5
+              - 10
+              - 15
+              - 20
+              - 25
+              - 30
+              - 35
+              - 40
+              - 45
+              - 50
+            maxCriticalRatio: 0.05
+            varianceInflationFactor: 2
+            slidingWindowHistorySize: 15
+            significanceLevelBaseline: 0.01
+            significanceLevelRecovery: 0.01
+            varianceInflationFactorBaseline: 1
+            intraClusterCorrelationCoefficient: 0.5
+          property: failureRate
+          schemaId: builtin:internal.anomaly-detection.services
+        - limit:
+            varianceInflationFactor: 5
+            slidingWindowHistorySize: 15
+            significanceLevelBaseline: 0.01
+            significanceLevelRecovery: 0.01
+            upperRelativeToMaxThreshold: 0.5
+            upperThresholdQuantileValue: 0.9
+            varianceInflationFactorBaseline: 5
+            intraClusterCorrelationCoefficient: 0.5
+          property: tenantLoad
+          schemaId: builtin:internal.anomaly-detection.services
+        - limit:
+            minimumPresenceRatio: 0.22
+          property: misc
+          schemaId: builtin:internal.anomaly-detection.services
+        - limit: 1000000
+          property: maxRecordsBeforeFlush
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 10
+          property: maxDurationBeforeFlushSeconds
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxRecordsBeforeFlushLogs
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxDurationBeforeFlushSecondsLogs
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxRecordsBeforeFlushEvents
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxDurationBeforeFlushSecondsEvents
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxRecordsBeforeFlushBizEvents
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxDurationBeforeFlushSecondsBizEvents
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxRecordsBeforeFlushTraces
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxDurationBeforeFlushSecondsTraces
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxRecordsBeforeFlushMetrics
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1
+          property: maxDurationBeforeFlushSecondsMetrics
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 3
+          property: ingestRetryCount
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 1000000
+          property: entityQueryResultLimit
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 100
+          property: entityQueryRelationshipResultLimit
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 5
+          property: ingestDelayBetweenRetriesSeconds
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 10
+          property: ingestDelayBetweenRetriesMaxSeconds
+          schemaId: builtin:internal.deus-connection-settings
+        - limit: 0.01
+          property: changePointSignificanceLevel
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 10000
+          property: maximumNumberOfAnalyzedTriggerEntityCalls
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 10000
+          property: maximumNumberOfAnalyzedCallTrees
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 10000
+          property: maximumNumberOfAnalyzedEntryPointCalls
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 1.5
+          property: desiredDataQuantityFactor
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 60
+          property: sessionStorageDataAvailabilityDelaySeconds
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: false
+          property: disableFilteringOfRelevantHorizontalChangePoints
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 0.05
+          property: impactAnalysisRelativeNumCallTreeLimitForEntryPoints
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 0.01
+          property: minimumFractionOfCallTreesRequiredForChangePointAnalysis
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 5
+          property: minimumNumberDataPointsRequiredForChangePointAnalysis
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 20
+          property: localLeafCallLimit
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 100
+          property: globalLeafCallLimit
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 0.001
+          property: horizontalAnalysisDebuggingInfoSamplingRate
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 2592000
+          property: horizontalAnalysisDebuggingInfoTTLSeconds
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 0.75
+          property: horizontalAnalysisSearchInServiceDetectedInstancesRatio
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 3
+          property: horizontalAnalysisSearchInServiceInstancesThreshold
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 1.3
+          property: horizontalAnalysisExplainingChangePointScoreFactor
+          schemaId: builtin:internal.fdi.horizontal-analysis
+        - limit: 50000
+          property: minRequiredDiskSpaceInMb
+          schemaId: builtin:internal.monitoredentities.meattributeindex.caching
+        - limit: 30000
+          property: maxDiskSpaceUsageInMb
+          schemaId: builtin:internal.monitoredentities.meattributeindex.caching
+        - limit: EnabledForAll
+          property: cachingMode
+          schemaId: builtin:internal.monitoredentities.meattributeindex.caching
+        - limit: []
+          property: SpecificTypeOverwritesEnabled
+          schemaId: builtin:internal.monitoredentities.meattributeindex.caching
+        - limit: []
+          property: SpecificTypeOverwritesDisabled
+          schemaId: builtin:internal.monitoredentities.meattributeindex.caching
+        - limit: []
+          property: jsAgentVersion
+          schemaId: builtin:internal.rum.jsagent-version-blocking
+        - limit:
+            - appId: dynatrace.biz.flow
+              status: OK
+              versionMappings:
+                - appVersion: 1.21.0
+                  schemaVersion: "0.1"
+                  virtualSchemaId: biz-flow-settings
+            - appId: my.moderation.helper
+              status: OK
+              versionMappings:
+                - appVersion: 0.10.0
+                  schemaVersion: "2"
+                  virtualSchemaId: general
+            - appId: dynatrace.infraops
+              status: OK
+              versionMappings:
+                - appVersion: 1.9.2
+                  schemaVersion: "1.3"
+                  virtualSchemaId: settings
+            - appId: dynatrace.redhat.ansible
+              status: OK
+              versionMappings:
+                - appVersion: 1.1.0
+                  schemaVersion: 1.0.2
+                  virtualSchemaId: automation-controller.connection
+                - appVersion: 1.1.0
+                  schemaVersion: 1.0.2
+                  virtualSchemaId: eda-webhook.connection
+            - appId: dynatrace.msteams
+              status: OK
+              versionMappings:
+                - appVersion: 1.3.0
+                  schemaVersion: 1.0.1
+                  virtualSchemaId: connection
+            - appId: dynatrace.slack
+              status: OK
+              versionMappings:
+                - appVersion: 2.3.0
+                  schemaVersion: 0.0.14
+                  virtualSchemaId: connection
+            - appId: dynatrace.site.reliability.guardian
+              status: OK
+              versionMappings:
+                - appVersion: 1.15.0
+                  schemaVersion: 1.3.2
+                  virtualSchemaId: guardians
+            - appId: dynatrace.hub
+              status: OK
+              versionMappings:
+                - appVersion: 1.1064.0
+                  schemaVersion: 0.0.6
+                  virtualSchemaId: manage.permissions
+            - appId: dynatrace.microsoft365.connector
+              status: OK
+              versionMappings:
+                - appVersion: 1.2.1
+                  schemaVersion: 0.0.5
+                  virtualSchemaId: mail.connection
+            - appId: my.appdev.advocacy
+              status: OK
+              versionMappings:
+                - appVersion: 0.10.0
+                  schemaVersion: "2"
+                  virtualSchemaId: general
+            - appId: dynatrace.gitlab.connector
+              status: OK
+              versionMappings:
+                - appVersion: 1.3.0
+                  schemaVersion: 0.1.2
+                  virtualSchemaId: connection
+            - appId: dynatrace.azure.connector
+              status: OK
+              versionMappings:
+                - appVersion: 1.2.1
+                  schemaVersion: 0.1.1
+                  virtualSchemaId: microsoft-entra-identity-developer-connection
+            - appId: my.officehours.demo
+              status: OK
+              versionMappings:
+                - appVersion: 0.0.5
+                  schemaVersion: 0.0.5
+                  virtualSchemaId: query-swapi-connection
+            - appId: dynatrace.custom.extensions.creator
+              status: OK
+              versionMappings:
+                - appVersion: 1.1.2
+                  schemaVersion: 1.0.1
+                  virtualSchemaId: custom-extensions-creator
+            - appId: dynatrace.jira
+              status: OK
+              versionMappings:
+                - appVersion: 4.5.1
+                  schemaVersion: 0.0.11
+                  virtualSchemaId: connection
+            - appId: dynatrace.database.overview
+              status: OK
+              versionMappings:
+                - appVersion: 1.44.0
+                  schemaVersion: "1"
+                  virtualSchemaId: feature-flags
+            - appId: dynatrace.launcher
+              status: OK
+              versionMappings:
+                - appVersion: 2.9.3
+                  schemaVersion: 0.0.3
+                  virtualSchemaId: default.launchpad
+            - appId: dynatrace.github.connector
+              status: OK
+              versionMappings:
+                - appVersion: 1.2.1
+                  schemaVersion: 0.1.1
+                  virtualSchemaId: connection
+            - appId: dynatrace.discovery.coverage
+              status: OK
+              versionMappings:
+                - appVersion: 1.13.1
+                  schemaVersion: 1.0.7
+                  virtualSchemaId: discovery.findings.default.rules.schema
+                - appVersion: 1.13.1
+                  schemaVersion: "1"
+                  virtualSchemaId: feature-flags
+            - appId: dynatrace.servicenow
+              status: OK
+              versionMappings:
+                - appVersion: 1.1.0
+                  schemaVersion: 1.0.1
+                  virtualSchemaId: connection
+            - appId: dynatrace.pagerduty
+              status: OK
+              versionMappings:
+                - appVersion: 1.1.0
+                  schemaVersion: 0.0.7
+                  virtualSchemaId: connection
+            - appId: dynatrace.jenkins.connector
+              status: OK
+              versionMappings:
+                - appVersion: 1.1.0
+                  schemaVersion: 0.0.5
+                  virtualSchemaId: connection
+            - appId: dynatrace.security.devsecopslifecyclecoverage
+              status: OK
+              versionMappings:
+                - appVersion: 1.5.2
+                  schemaVersion: 0.0.4
+                  virtualSchemaId: connection
+          property: appStatuses
+          schemaId: builtin:internal.app.status
+        - limit: correlation.spanAttributePropagationList
+          property: key
+          schemaId: builtin:internal.agent.flags
+        - limit:
+            valueType: string
+            stringValue: http.route,graphql.operation.graphqlname,graphql.operation.type,graphql_operation_name
+          property: value
+          schemaId: builtin:internal.agent.flags
+        - limit: 1
+          property: timeout
+          schemaId: builtin:internal.agent.flags
+        - limit: 250
+          property: extensionsCountLimit
+          schemaId: builtin:internal.extension.framework.configuration
+        - limit: 10
+          property: extensionVersionsCountLimit
+          schemaId: builtin:internal.extension.framework.configuration
+        - limit: 100
+          property: configurationsPerExtensionCountLimit
+          schemaId: builtin:internal.extension.framework.configuration
+        - limit: 25
+          property: extensionFileSizeLimit
+          schemaId: builtin:internal.extension.framework.configuration
+        - limit: 2048
+          property: fileStoreLimit
+          schemaId: builtin:internal.extension.framework.configuration
+        - limit: []
+          property: monitoringSchemaCustomization
+          schemaId: builtin:internal.extension.framework.configuration
+        - limit: 64132
+          property: contentLength
+          schemaId: builtin:internal.bizevents.limits
+        - limit: 200
+          property: maxEventsPerPeriod
+          schemaId: builtin:internal.bizevents.limits
+        - limit: 1048576
+          property: maxBytesPerPeriod
+          schemaId: builtin:internal.bizevents.limits
+        - limit: 1000
+          property: periodLengthMillis
+          schemaId: builtin:internal.bizevents.limits
+        - limit:
+            pvcMonitoringEnabled: false
+            enableAnomalyDetection: true
+            forward2ndGenMetricsToGrail: false
+            enableKubernetesMetadataEnrichment: true
+            openMetricsBuiltinLineFilterPattern: id="/docker
+          property: devops
+          schemaId: builtin:internal.cloud.kubernetes
+        - limit:
+            genericObjectWorkloadHandling: false
+            metricDimensionDroppingEnabled: false
+          property: dataReduction
+          schemaId: builtin:internal.cloud.kubernetes
+        - limit: {}
+          property: experimentalFeatures
+          schemaId: builtin:internal.cloud.kubernetes
+        - limit: 1024
+          property: maxBeaconSizeKib
+          schemaId: builtin:internal.rum.beacon-protocol-4
+        - limit: 256
+          property: maxEventSizeKib
+          schemaId: builtin:internal.rum.beacon-protocol-4
+        - limit: true
+          property: checksumValidation
+          schemaId: builtin:internal.rum.beacon-protocol-4
+        - limit: true
+          property: gen2JsAgentActive
+          schemaId: builtin:internal.rum.beacon-protocol-4
+        - limit: 30
+          property: retentionTimeInDays
+          schemaId: builtin:internal.audit-log
+        - limit: 5000
+          schemaId: builtin:rum.ip-mappings
+        - limit: 500
+          schemaId: builtin:monitoredentities.generic.relation
+        - limit: 500
+          schemaId: builtin:monitoredentities.generic.type
+      position:
+        x: 0
+        y: 4
+      predecessors:
+        - cleanup
+      conditions:
+        states:
+          cleanup: OK
+    get_limits:
+      name: get_limits
+      description: Build a custom task running js Code
+      action: dynatrace.automations:run-javascript
+      input:
+        script: >-
+          import { execution } from '@dynatrace-sdk/automation-utils';
+
+          import { actionExecution } from "@dynatrace-sdk/automation-utils";
+
+          import {
+            settingsObjectsClient,
+            settingsSchemasClient,
+          } from "@dynatrace-sdk/client-classic-environment-v2";
+
+
+          export default async function ({ execution_id, action_execution_id })
+          {
+            const actionEx = await actionExecution(action_execution_id);
+            const schemaId = actionEx.loopItem.schema;
+
+            const resp = await settingsSchemasClient.getSchemaDefinition({
+                  schemaId,
+                }).catch((e) => {
+                console.log(`Failed to retrieve schema definition for ${schemaId}: ${e}`);
+                });
+
+            const settingsObjectResp = await settingsObjectsClient.getSettingsObjects({
+                  schemaIds: schemaId,
+                  scopes: "environment"
+                }).catch((e) => {
+                console.log(`Retrieving ${schemaId} failed with ${e}`);
+                });
+
+            if (!resp || !settingsObjectResp) {
+              console.log("One or more API calls failed. Exiting function.");
+              return;
+            };
+            
+            const limit = { 
+              schemaId, 
+              displayName: resp.displayName, 
+              description: resp.description, 
+              limit: resp.maxObjects, 
+              current: settingsObjectResp.totalCount 
+            };
+            
+            console.log(limit);
+            
+            return limit;
+          }
+      customSampleResult:
+        - limit: 1000
+          current: 0
+          schemaId: builtin:service-detection.full-web-service
+        - limit: 1000
+          current: 1
+          schemaId: builtin:infrastructure.disk.edge.anomaly-detectors
+        - limit: 1000
+          current: 186
+          schemaId: builtin:span-attribute
+        - limit: 10000
+          current: 0
+          schemaId: builtin:monitoring.slo
+        - limit: 100
+          current: 0
+          schemaId: builtin:process-group.simple-detection-rule
+        - limit: 100
+          current: 2
+          schemaId: builtin:bizevents-processing-buckets.rule
+        - limit: 1000
+          current: 0
+          schemaId: builtin:appsec.attack-protection-advanced-config
+        - limit: 10
+          current: 3
+          schemaId: builtin:rum.host-headers
+        - limit: 100
+          current: 2
+          schemaId: builtin:bizevents-processing-pipelines.rule
+        - limit: 1000
+          current: 26
+          schemaId: builtin:logmonitoring.log-dpp-rules
+        - limit: 1000
+          current: 0
+          schemaId: builtin:logmonitoring.log-events
+        - limit: 2000
+          current: 0
+          schemaId: builtin:attribute-block-list
+        - limit: 256
+          current: 5
+          schemaId: builtin:logmonitoring.sensitive-data-masking-settings
+        - limit: 100
+          current: 0
+          schemaId: builtin:bizevents-processing-metrics.rule
+        - limit: 1000
+          current: 1
+          schemaId: builtin:logmonitoring.custom-log-source-settings
+        - limit: 100
+          current: 0
+          schemaId: builtin:container.monitoring-rule
+        - limit: 1000
+          current: 0
+          schemaId: builtin:service-detection.external-web-service
+        - limit: 100
+          current: 0
+          schemaId: builtin:internal.event.drop-reports
+        - limit: 1000
+          current: 0
+          schemaId: builtin:appsec.notification-integration
+        - limit: 100
+          current: 0
+          schemaId: builtin:rum.web.custom-configuration-properties
+        - limit: 100
+          current: 26
+          schemaId: builtin:apis.detection-rules
+        - limit: 100
+          current: 0
+          schemaId: builtin:devobs.sensitive.data.masking
+        - limit: 400
+          current: 0
+          schemaId: builtin:processavailability
+        - limit: 10000
+          current: 1
+          schemaId: builtin:anomaly-detection.metric-events
+        - limit: 1000
+          current: 0
+          schemaId: builtin:davis.anomaly-detectors
+        - limit: 1000
+          current: 0
+          schemaId: builtin:service-detection.external-web-request
+        - limit: 25
+          current: 0
+          schemaId: builtin:url-based-sampling
+        - limit: 5000
+          current: 0
+          schemaId: builtin:rum.ip-mappings
+        - limit: 1000
+          current: 0
+          schemaId: builtin:host.process-groups.monitoring-state
+        - limit: 500
+          current: 19
+          schemaId: builtin:monitoredentities.generic.type
+        - limit: 100
+          current: 0
+          schemaId: builtin:process-group.advanced-detection-rule
+        - limit: 100
+          current: 0
+          schemaId: builtin:rum.web.xhr-exclusion
+        - limit: 1000
+          current: 353
+          schemaId: builtin:oneagent.features
+        - limit: 100
+          current: 0
+          schemaId: builtin:rum.provider-breakdown
+        - limit: 400
+          current: 0
+          schemaId: builtin:declarativegrouping
+        - limit: 500
+          current: 0
+          schemaId: builtin:ibmmq.queue-managers
+        - limit: 100
+          current: 0
+          schemaId: builtin:ibmmq.ims-bridges
+        - limit: 1000
+          current: 0
+          schemaId: builtin:appsec.code-level-vulnerability-rule-settings
+        - limit: 1000
+          current: 0
+          schemaId: builtin:ownership.teams
+        - limit: 20
+          current: 0
+          schemaId: builtin:issue-tracking.integration
+        - limit: 1000
+          current: 14
+          schemaId: builtin:attribute-masking
+        - limit: 5000
+          current: 1
+          schemaId: builtin:management-zones
+        - limit: 1000
+          current: 0
+          schemaId: builtin:failure-detection.environment.rules
+        - limit: 1000
+          current: 0
+          schemaId: builtin:problem.notifications
+        - limit: 20
+          current: 0
+          schemaId: builtin:rum.web.beacon-domain-origins
+        - limit: 3
+          current: 0
+          schemaId: builtin:elasticsearch.user-session-export-settings-v2
+        - limit: 1000
+          current: 0
+          schemaId: builtin:service-detection.full-web-request
+        - limit: 100
+          current: 0
+          schemaId: builtin:span-context-propagation
+        - limit: 20
+          current: 0
+          schemaId: builtin:rum.web.resource-types
+        - limit: 100
+          current: 0
+          schemaId: builtin:rum.web.custom-injection-rules
+        - limit: 1000
+          current: 7
+          schemaId: builtin:logmonitoring.log-storage-settings
+        - limit: 10000
+          current: 0
+          schemaId: builtin:failure-detection.environment.parameters
+        - limit: 1000
+          current: 0
+          schemaId: builtin:remote.environment
+        - limit: 100
+          current: 0
+          schemaId: builtin:user-action-custom-metrics
+        - limit: 2000
+          current: 0
+          schemaId: builtin:alerting.maintenance-window
+        - limit: 100
+          current: 2
+          schemaId: builtin:logmonitoring.log-buckets-rules
+        - limit: 100
+          current: 0
+          schemaId: builtin:ibmmq.queue-sharing-group
+        - limit: 1000
+          current: 0
+          schemaId: builtin:logmonitoring.log-security-context-rules
+        - limit: 1000
+          current: 2
+          schemaId: builtin:alerting.profile
+        - limit: 100
+          current: 0
+          schemaId: builtin:internal.open-pipeline.endpoints
+        - limit: 1000
+          current: 1
+          schemaId: builtin:rum.web.app-detection
+        - limit: 100
+          current: 1
+          schemaId: builtin:logmonitoring.timestamp-configuration
+        - limit: 1000
+          current: 0
+          schemaId: builtin:anomaly-detection.disk-rules
+        - limit: 1000
+          current: 0
+          schemaId: builtin:bizevents-security-context-rules
+        - limit: 100
+          current: 3
+          schemaId: builtin:span-entry-points
+        - limit: 500
+          current: 0
+          schemaId: builtin:virtualization.vmware
+        - limit: 1000
+          current: 0
+          schemaId: builtin:logmonitoring.schemaless-log-metric
+        - limit: 100
+          current: 0
+          schemaId: builtin:internal.open-pipeline.pipelines
+        - limit: 100
+          current: 0
+          schemaId: builtin:appsec.rule-settings
+        - limit: 100
+          current: 0
+          schemaId: builtin:deployment.management.update-windows
+        - limit: 200
+          current: 0
+          schemaId: builtin:appsec.notification-alerting-profile
+        - limit: 500
+          current: 0
+          schemaId: builtin:custom-metrics
+        - limit: 2000
+          current: 395
+          schemaId: builtin:attribute-allow-list
+        - limit: 100
+          current: 0
+          schemaId: builtin:cloud.cloudfoundry
+        - limit: 20
+          current: 0
+          schemaId: builtin:rum.web.resource-cleanup-rules
+        - limit: 400
+          current: 2
+          schemaId: builtin:os-services-monitoring
+        - limit: 100
+          current: 0
+          schemaId: builtin:span-capturing
+        - limit: 5000
+          current: 0
+          schemaId: builtin:tags.auto-tagging
+        - limit: 100
+          current: 0
+          schemaId: builtin:custom-unit
+        - limit: 100
+          current: 0
+          schemaId: builtin:process.custom-process-monitoring-rule
+        - limit: 50
+          current: 0
+          schemaId: builtin:logmonitoring.log-custom-attributes
+        - limit: 100
+          current: 4
+          schemaId: builtin:span-event-attribute
+        - limit: 100
+          current: 3
+          schemaId: builtin:internal.agent.flags
+        - limit: 100
+          current: 68
+          schemaId: builtin:bizevents.http.incoming
+        - limit: 500
+          current: 26
+          schemaId: builtin:monitoredentities.generic.relation
+        - limit: 10
+          current: 0
+          schemaId: builtin:appsec.notification-attack-alerting-profile
+        - limit: 100
+          current: 0
+          schemaId: builtin:rum.resource-timing-origins
+        - limit: 35
+          current: 11
+          schemaId: builtin:problem.fields
+        - limit: 10
+          current: 7
+          schemaId: builtin:rum.ip-determination
+        - limit: 1000
+          current: 0
+          schemaId: builtin:appsec.attack-protection-allowlist-config
+        - limit: 100
+          current: 0
+          schemaId: builtin:bizevents.http.outgoing
+        - limit: 1000
+          current: 332
+          schemaId: builtin:monitoredentities.grail.security.context
+        - limit: 100
+          current: 0
+          schemaId: builtin:hyperscaler-authentication.aws.connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.database.overview:feature-flags
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.pagerduty:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.custom.extensions.creator:custom-extensions-creator
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.security.devsecopslifecyclecoverage:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.microsoft365.connector:mail.connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.biz.flow:biz-flow-settings
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.azure.connector:microsoft-entra-identity-developer-connection
+        - limit: 100
+          current: 24
+          schemaId: app:dynatrace.discovery.coverage:discovery.findings.default.rules.schema
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.jira:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.discovery.coverage:feature-flags
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.jenkins.connector:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.servicenow:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.redhat.ansible:eda-webhook.connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.hub:manage.permissions
+        - limit: 100
+          current: 1
+          schemaId: app:dynatrace.slack:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.github.connector:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.gitlab.connector:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.msteams:connection
+        - limit: 100
+          current: 0
+          schemaId: app:dynatrace.redhat.ansible:automation-controller.connection
+        - limit: 1000
+          current: 1
+          schemaId: app:dynatrace.site.reliability.guardian:guardians
+        - limit: 100
+          current: 2
+          schemaId: app:my.officehours.demo:query-swapi-connection
+      position:
+        x: 0
+        y: 2
+      predecessors:
+        - get_multiobject_schemas
+      conditions:
+        states:
+          get_multiobject_schemas: OK
+      retry:
+        count: 5
+        delay: 30
+        failedLoopIterationsOnly: true
+      timeout: 3600
+      concurrency: 5
+      withItems: schema in {{ result("get_multiobject_schemas") }}
+    sfm_bookmark:
+      name: sfm_bookmark
+      description: Make use of Dynatrace Grail data in your workflow.
+      action: dynatrace.automations:execute-dql-query
+      input:
+        query: data record(dt_limits_workfow = 1)
+      position:
+        x: -1
+        y: 1
+      predecessors: []
+    get_multiobject_schemas:
+      name: get_multiobject_schemas
+      description: Build a custom task running js Code
+      action: dynatrace.automations:run-javascript
+      input:
+        script: >-
+          import { execution } from '@dynatrace-sdk/automation-utils';
+
+          import {
+            settingsObjectsClient,
+            settingsSchemasClient,
+          } from "@dynatrace-sdk/client-classic-environment-v2";
+
+
+          export default async function ({ execution_id }) {
+            
+            const schemasResponse =
+              await settingsSchemasClient.getAvailableSchemaDefinitions({
+                fields: "schemaId,multiObject",
+              }).catch((e) => {
+                console.log(`Retrieving multiobject schemas failed due to: ${e}`)
+                return undefined;
+                });
+
+            if (!schemasResponse) {
+              console.log("API call to retrieve multiobject schemas failed.");
+            }
+            
+            const schemas: string[] = [];
+            schemasResponse.items.map((schemaItem) => {
+              if (schemaItem.multiObject == true) {
+                schemas.push(schemaItem.schemaId);
+              }
+            });
+
+            return schemas;
+          }
+      customSampleResult:
+        - builtin:service-detection.full-web-service
+        - builtin:infrastructure.disk.edge.anomaly-detectors
+        - builtin:span-attribute
+        - builtin:monitoring.slo
+        - builtin:process-group.simple-detection-rule
+        - builtin:bizevents-processing-buckets.rule
+        - builtin:appsec.attack-protection-advanced-config
+        - builtin:rum.host-headers
+        - builtin:bizevents-processing-pipelines.rule
+        - builtin:logmonitoring.log-dpp-rules
+        - builtin:logmonitoring.log-events
+        - builtin:attribute-block-list
+        - builtin:logmonitoring.sensitive-data-masking-settings
+        - builtin:bizevents-processing-metrics.rule
+        - builtin:logmonitoring.custom-log-source-settings
+        - builtin:container.monitoring-rule
+        - builtin:service-detection.external-web-service
+        - builtin:internal.event.drop-reports
+        - builtin:appsec.notification-integration
+        - builtin:rum.web.custom-configuration-properties
+        - builtin:apis.detection-rules
+        - builtin:devobs.sensitive.data.masking
+        - builtin:processavailability
+        - builtin:anomaly-detection.metric-events
+        - builtin:davis.anomaly-detectors
+        - builtin:service-detection.external-web-request
+        - builtin:url-based-sampling
+        - builtin:rum.ip-mappings
+        - builtin:host.process-groups.monitoring-state
+        - builtin:monitoredentities.generic.type
+        - builtin:process-group.advanced-detection-rule
+        - builtin:rum.web.xhr-exclusion
+        - builtin:oneagent.features
+        - builtin:rum.provider-breakdown
+        - builtin:declarativegrouping
+        - builtin:ibmmq.queue-managers
+        - builtin:ibmmq.ims-bridges
+        - builtin:appsec.code-level-vulnerability-rule-settings
+        - builtin:ownership.teams
+        - builtin:issue-tracking.integration
+        - builtin:attribute-masking
+        - builtin:management-zones
+        - builtin:failure-detection.environment.rules
+        - builtin:problem.notifications
+        - builtin:rum.web.beacon-domain-origins
+        - builtin:elasticsearch.user-session-export-settings-v2
+        - builtin:service-detection.full-web-request
+        - builtin:span-context-propagation
+        - builtin:rum.web.resource-types
+        - builtin:rum.web.custom-injection-rules
+        - builtin:logmonitoring.log-storage-settings
+        - builtin:failure-detection.environment.parameters
+        - builtin:remote.environment
+        - builtin:user-action-custom-metrics
+        - builtin:alerting.maintenance-window
+        - builtin:logmonitoring.log-buckets-rules
+        - builtin:ibmmq.queue-sharing-group
+        - builtin:logmonitoring.log-security-context-rules
+        - builtin:alerting.profile
+        - builtin:internal.open-pipeline.endpoints
+        - builtin:rum.web.app-detection
+        - builtin:logmonitoring.timestamp-configuration
+        - builtin:anomaly-detection.disk-rules
+        - builtin:bizevents-security-context-rules
+        - builtin:span-entry-points
+        - builtin:virtualization.vmware
+        - builtin:logmonitoring.schemaless-log-metric
+        - builtin:internal.open-pipeline.pipelines
+        - builtin:appsec.rule-settings
+        - builtin:deployment.management.update-windows
+        - builtin:appsec.notification-alerting-profile
+        - builtin:custom-metrics
+        - builtin:attribute-allow-list
+        - builtin:cloud.cloudfoundry
+        - builtin:rum.web.resource-cleanup-rules
+        - builtin:os-services-monitoring
+        - builtin:span-capturing
+        - builtin:tags.auto-tagging
+        - builtin:custom-unit
+        - builtin:process.custom-process-monitoring-rule
+        - builtin:logmonitoring.log-custom-attributes
+        - builtin:span-event-attribute
+        - builtin:internal.agent.flags
+        - builtin:bizevents.http.incoming
+        - builtin:monitoredentities.generic.relation
+        - builtin:appsec.notification-attack-alerting-profile
+        - builtin:rum.resource-timing-origins
+        - builtin:problem.fields
+        - builtin:rum.ip-determination
+        - builtin:appsec.attack-protection-allowlist-config
+        - builtin:bizevents.http.outgoing
+        - builtin:monitoredentities.grail.security.context
+        - builtin:hyperscaler-authentication.aws.connection
+        - app:dynatrace.database.overview:feature-flags
+        - app:dynatrace.pagerduty:connection
+        - app:dynatrace.custom.extensions.creator:custom-extensions-creator
+        - app:dynatrace.security.devsecopslifecyclecoverage:connection
+        - app:dynatrace.microsoft365.connector:mail.connection
+        - app:dynatrace.biz.flow:biz-flow-settings
+        - app:dynatrace.azure.connector:microsoft-entra-identity-developer-connection
+        - app:dynatrace.discovery.coverage:discovery.findings.default.rules.schema
+        - app:dynatrace.jira:connection
+        - app:dynatrace.discovery.coverage:feature-flags
+        - app:dynatrace.jenkins.connector:connection
+        - app:dynatrace.servicenow:connection
+        - app:dynatrace.redhat.ansible:eda-webhook.connection
+        - app:dynatrace.hub:manage.permissions
+        - app:dynatrace.slack:connection
+        - app:dynatrace.github.connector:connection
+        - app:dynatrace.gitlab.connector:connection
+        - app:dynatrace.msteams:connection
+        - app:dynatrace.redhat.ansible:automation-controller.connection
+        - app:dynatrace.site.reliability.guardian:guardians
+        - app:my.officehours.demo:query-swapi-connection
+      position:
+        x: 0
+        y: 1
+      predecessors: []
+      retry:
+        count: 5
+        delay: 30
+        failedLoopIterationsOnly: true
+  description: ""
+  trigger: {}
+  schemaVersion: 3
+  result: null
+  input: {}
+  type: STANDARD
