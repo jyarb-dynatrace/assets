@@ -1,0 +1,40 @@
+{
+  "name": "observability-scorecard",
+  "version": "0.0.1",
+  "description": "Signal coverage scorecard for all services — Metrics, Traces, Logs, Cloud Events, and SLOs.",
+  "scripts": {
+    "build": "dt-app build --prod",
+    "start": "dt-app dev",
+    "deploy": "dt-app deploy",
+    "update": "dt-app update",
+    "info": "dt-app info",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dynatrace-sdk/client-classic-environment-v2": "^1.12.0",
+    "@dynatrace-sdk/client-query": "1.11.0",
+    "@dynatrace/strato-components-preview": "0.113.2",
+    "@dynatrace/strato-design-tokens": "^1.0.0",
+    "@dynatrace/strato-icons": "^0.36.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@microsoft/eslint-plugin-sdl": "^0.2.0",
+    "@types/node": "^16.11.34",
+    "@types/react": "^18.2.63",
+    "@types/react-dom": "^18.2.20",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "dt-app": "^1.18.0",
+    "eslint": "^8.15.0",
+    "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0"
+  }
+}

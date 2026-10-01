@@ -1,0 +1,563 @@
+2026-09-23T10:47:54.112Z INFO  DT-APP:  Port 3000 is already in use. Using port 3002 instead.
+2026-09-23T10:47:54.163Z DEBUG [TELEMETRY] Reading package.json
+2026-09-23T10:47:54.197Z DEBUG [TELEMETRY] Initializing OpenKit
+2026-09-23T10:47:57.393Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T10:47:57.393Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T10:47:57.393Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T10:47:57.398Z DEBUG [TELEMETRY] Successfully identified user uniquely
+2026-09-23T10:48:01.618Z ERROR Error: Please specify a valid 'environmentUrl' in the dt-app configuration file: 
+/Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.(json|js|ts)
+2026-09-23T10:48:01.618Z DEBUG [TELEMETRY] Reporting error cause
+2026-09-23T10:48:01.618Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-23T10:54:47.102Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T10:55:23.091Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T10:55:23.091Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T10:55:23.092Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  In dt-app v1.0, UI sources are expected to be located in the project's sourceRoot directory. To specify a different source root, please use the "build.sourceRoot" configuration.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2026-09-23T10:55:23.145Z DEBUG [UI] No /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/ui/main.tsx found. Defaulting to legacy structure.
+2026-09-23T10:55:23.145Z DEBUG [LEGACY] Paths that are used: {"entryPoint":"/Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/main.tsx","assetsInput":"ui/assets","tsConfigFullPath":"/Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/tsconfig.json"}
+2026-09-23T10:55:23.145Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T10:55:23.145Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T10:55:23.359Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T10:55:23.359Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T10:55:23.359Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T10:55:23.362Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T10:55:26.443Z DEBUG [UI] No /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/ui/main.tsx found. Defaulting to legacy structure.
+2026-09-23T10:55:26.443Z DEBUG [LEGACY] Paths that are used: {"entryPoint":"/Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/main.tsx","assetsInput":"ui/assets","tsConfigFullPath":"/Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/tsconfig.json"}
+2026-09-23T10:55:26.453Z ERROR 
+              Invalid project structure detected
+
+              Your project uses an outdated file structure that is not supported in dt-app v1.0.
+              To ensure compatibility and avoid build issues, please update your project structure.
+
+              Required Changes:
+
+              1. Configure sourceRoot in app.config.json:
+                • Set "build.sourceRoot" to your desired source directory (default: "./")
+                • Example: "build": { "sourceRoot": "src" }
+
+              2. Organize your code using the standardized structure:
+                <sourceRoot>/
+                ├── ui/                     ← UI components and main.tsx
+                │   ├── main.tsx
+                │   └── tsconfig.json
+                ├── api/                    ← App functions (*.function.ts)
+                ├── actions/                ← Workflow actions (*.action.ts)
+                ├── settings/               ← Settings widgets and schemas
+                └── documents/              ← Document files
+
+              Thank you for your support!
+        
+2026-09-23T10:55:26.454Z ERROR Error: No ui code has been built. Please make sure you either have ui source files (including your entrypoint '/Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/main.tsx') or the app.hidden flag set to true.
+2026-09-23T10:55:26.454Z DEBUG [TELEMETRY] Not reporting this specific error
+2026-09-23T10:55:26.454Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-23T10:55:26.497Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-23T11:00:49.976Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:00:49.976Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:00:50.029Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:00:50.029Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:00:50.323Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:00:50.323Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:00:50.323Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:00:50.324Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:01:24.199Z ERROR Error: No matching export in "node_modules/@dynatrace-sdk/client-classic-environment-v2/esm/index.js" for import "sloClient" at location: src/ui/app/pages/Scorecard.tsx:3:9
+2026-09-23T11:01:24.245Z DEBUG [BUILD_TIME] Built UI in 18419.832125ms.
+2026-09-23T11:01:24.254Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:3:10 - Error: No matching export in "node_modules/@dynatrace-sdk/client-classic-environment-v2/esm/index.js" for import "sloClient"
+  1 | import React, { useCallback, useEffect, useMemo, useState } from 'react';
+  2 | import { queryExecutionClient } from '@dynatrace-sdk/client-query';
+> 3 | import { sloClient } from '@dynatrace-sdk/client-classic-environment-v2';
+    |          ^
+  4 | import {
+  5 |   DataTable,
+  6 |   useFilteredData,
+2026-09-23T11:01:24.255Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:3:10 - Error: TS2724 '"@dynatrace-sdk/client-classic-environment-v2"' has no exported member named 'sloClient'. Did you mean 'logsClient'?
+  1 | import React, { useCallback, useEffect, useMemo, useState } from 'react';
+  2 | import { queryExecutionClient } from '@dynatrace-sdk/client-query';
+> 3 | import { sloClient } from '@dynatrace-sdk/client-classic-environment-v2';
+    |          ^
+  4 | import {
+  5 |   DataTable,
+  6 |   useFilteredData,
+2026-09-23T11:01:24.257Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:92:57 - Error: TS2322 Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+  90 |
+  91 |   while (state !== 'SUCCEEDED' && state !== 'FAILED' && state !== 'CANCELLED') {
+> 92 |     const poll = await queryExecutionClient.queryPoll({ requestToken });
+     |                                                         ^
+  93 |     state = poll.state;
+  94 |     if (poll.result?.records) {
+  95 |       records = poll.result.records as Record<string, unknown>[];
+2026-09-23T11:01:24.258Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:315:8 - Error: TS2322 Type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; sortable: true; enableDefaultSort: true; resizable: true; }' is not assignable to type 'IntrinsicAttributes & (DataTableProps & RefAttributes<DataTableRef>)'.
+  Type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; sortable: true; enableDefaultSort: true; resizable: true; }' is not assignable to type '(IntrinsicAttributes & DataTableBaseProps & DataTableColumnVisibilityControlledProps & ... 6 more ... & RefAttributes<...>) | ... 30 more ... | (IntrinsicAttributes & ... 8 more ... & RefAttributes<...>)'.
+    Property 'onSortChange' is missing in type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; sortable: true; enableDefaultSort: true; resizable: true; }' but required in type 'DataTableOnSortPropsWithChange'.
+  313 |       </TitleBar>
+  314 |
+> 315 |       <DataTable
+      |        ^
+  316 |         loading={loading}
+  317 |         data={filteredData}
+  318 |         columns={columns}
+2026-09-23T11:01:24.258Z ERROR Error: Build failed!
+2026-09-23T11:01:24.258Z DEBUG [TELEMETRY] Not reporting this specific error
+2026-09-23T11:01:24.259Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-23T11:01:24.405Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-23T11:03:02.375Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:03:02.376Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:03:02.431Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:03:02.432Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:03:02.712Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:03:02.712Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:03:02.712Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:03:02.713Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:03:19.019Z ERROR Error: No matching export in "node_modules/@dynatrace-sdk/client-classic-environment-v2/esm/index.js" for import "sloClient" at location: src/ui/app/pages/Scorecard.tsx:3:9
+2026-09-23T11:03:19.056Z DEBUG [BUILD_TIME] Built UI in 8721.607417ms.
+2026-09-23T11:03:19.064Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:3:10 - Error: No matching export in "node_modules/@dynatrace-sdk/client-classic-environment-v2/esm/index.js" for import "sloClient"
+  1 | import React, { useCallback, useEffect, useMemo, useState } from 'react';
+  2 | import { queryExecutionClient } from '@dynatrace-sdk/client-query';
+> 3 | import { sloClient } from '@dynatrace-sdk/client-classic-environment-v2';
+    |          ^
+  4 | import {
+  5 |   DataTable,
+  6 |   useFilteredData,
+2026-09-23T11:03:19.065Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:3:10 - Error: TS2724 '"@dynatrace-sdk/client-classic-environment-v2"' has no exported member named 'sloClient'. Did you mean 'logsClient'?
+  1 | import React, { useCallback, useEffect, useMemo, useState } from 'react';
+  2 | import { queryExecutionClient } from '@dynatrace-sdk/client-query';
+> 3 | import { sloClient } from '@dynatrace-sdk/client-classic-environment-v2';
+    |          ^
+  4 | import {
+  5 |   DataTable,
+  6 |   useFilteredData,
+2026-09-23T11:03:19.067Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:317:8 - Error: TS2322 Type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; sortable: true; enableDefaultSort: true; resizable: true; }' is not assignable to type 'IntrinsicAttributes & (DataTableProps & RefAttributes<DataTableRef>)'.
+  Type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; sortable: true; enableDefaultSort: true; resizable: true; }' is not assignable to type '(IntrinsicAttributes & DataTableBaseProps & DataTableColumnVisibilityControlledProps & ... 6 more ... & RefAttributes<...>) | ... 30 more ... | (IntrinsicAttributes & ... 8 more ... & RefAttributes<...>)'.
+    Property 'onSortChange' is missing in type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; sortable: true; enableDefaultSort: true; resizable: true; }' but required in type 'DataTableOnSortPropsWithChange'.
+  315 |       </TitleBar>
+  316 |
+> 317 |       <DataTable
+      |        ^
+  318 |         loading={loading}
+  319 |         data={filteredData}
+  320 |         columns={columns}
+2026-09-23T11:03:19.068Z ERROR Error: Build failed!
+2026-09-23T11:03:19.068Z DEBUG [TELEMETRY] Not reporting this specific error
+2026-09-23T11:03:19.068Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-23T11:03:19.218Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-23T11:04:22.505Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:04:22.505Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:04:22.570Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:04:22.570Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:04:22.780Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:04:22.780Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:04:22.780Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:04:22.803Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:04:30.293Z ERROR Error: No matching export in "node_modules/@dynatrace-sdk/client-classic-environment-v2/esm/index.js" for import "sloClient" at location: src/ui/app/pages/Scorecard.tsx:3:9
+2026-09-23T11:04:30.330Z DEBUG [BUILD_TIME] Built UI in 3344.3041669999993ms.
+2026-09-23T11:04:30.336Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:3:10 - Error: No matching export in "node_modules/@dynatrace-sdk/client-classic-environment-v2/esm/index.js" for import "sloClient"
+  1 | import React, { useCallback, useEffect, useMemo, useState } from 'react';
+  2 | import { queryExecutionClient } from '@dynatrace-sdk/client-query';
+> 3 | import { sloClient } from '@dynatrace-sdk/client-classic-environment-v2';
+    |          ^
+  4 | import {
+  5 |   DataTable,
+  6 |   useFilteredData,
+2026-09-23T11:04:30.337Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:3:10 - Error: TS2724 '"@dynatrace-sdk/client-classic-environment-v2"' has no exported member named 'sloClient'. Did you mean 'logsClient'?
+  1 | import React, { useCallback, useEffect, useMemo, useState } from 'react';
+  2 | import { queryExecutionClient } from '@dynatrace-sdk/client-query';
+> 3 | import { sloClient } from '@dynatrace-sdk/client-classic-environment-v2';
+    |          ^
+  4 | import {
+  5 |   DataTable,
+  6 |   useFilteredData,
+2026-09-23T11:04:30.338Z INFO > /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/src/ui/app/pages/Scorecard.tsx:317:8 - Error: TS2322 Type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; enableDefaultSort: true; resizable: true; }' is not assignable to type 'IntrinsicAttributes & (DataTableProps & RefAttributes<DataTableRef>)'.
+  Type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; enableDefaultSort: true; resizable: true; }' is not assignable to type '(IntrinsicAttributes & DataTableBaseProps & DataTableColumnVisibilityControlledProps & ... 6 more ... & RefAttributes<...>) | ... 30 more ... | (IntrinsicAttributes & ... 8 more ... & RefAttributes<...>)'.
+    Property 'onSortChange' is missing in type '{ children: Element[]; loading: boolean; data: any[]; columns: TableColumn[]; enableDefaultSort: true; resizable: true; }' but required in type 'DataTableOnSortPropsWithChange'.
+  315 |       </TitleBar>
+  316 |
+> 317 |       <DataTable
+      |        ^
+  318 |         loading={loading}
+  319 |         data={filteredData}
+  320 |         columns={columns}
+2026-09-23T11:04:30.339Z ERROR Error: Build failed!
+2026-09-23T11:04:30.339Z DEBUG [TELEMETRY] Not reporting this specific error
+2026-09-23T11:04:30.339Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-23T11:04:30.382Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-23T11:09:05.257Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:09:05.257Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:09:05.319Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:09:05.319Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:09:05.545Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:09:05.545Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:09:05.545Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:09:05.548Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:09:35.954Z DEBUG [BUILD_TIME] Built UI in 14411.893624999997ms.
+2026-09-23T11:09:35.957Z DEBUG [BUILD_TIME] Built in 28748.389541ms.
+2026-09-23T11:09:35.958Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2183.42 KB)
+2026-09-23T11:09:35.958Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-23T11:09:35.958Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-23T11:09:35.958Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-23T11:09:35.993Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-23T11:09:35.993Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-23T11:09:35.994Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-23T11:09:35.994Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-23T11:09:36.773Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D28f9ce8c-91f2-4a33-8e95-f97d1b24b224&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-23T11:09:36.774Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-23T11:09:36.774Z DEBUG [AUTH] Authenticate with Dynatrace SSO
+2026-09-23T11:09:37.488Z DEBUG [AUTH] SSO-link https://sso-sprint.dynatracelabs.com/oauth2/authorize?client_id=dt0s08.dt-app-local&redirect_uri=http%3A%2F%2Flocalhost%3A5343%2Fauth%2Flogin&state=2f72d6dcbce917778af1d45d31ae049925abbc92&response_type=code&code_challenge_method=S256&code_challenge=v3lTgdFlJYlYhs-zf1lg4SyQgcFUc9q56DceFIFBcoc
+2026-09-23T11:09:39.596Z DEBUG [AUTH] Received authorized code for oAuth
+2026-09-23T11:09:40.514Z DEBUG [DEPLOY] Installing the app
+2026-09-23T11:09:40.602Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-23T11:09:40.602Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D28f9ce8c-91f2-4a33-8e95-f97d1b24b224&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-23T11:09:40.602Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-23T11:09:41.601Z DEBUG [DEPLOY] App installed
+2026-09-23T11:09:41.601Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-23T11:09:41.601Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D28f9ce8c-91f2-4a33-8e95-f97d1b24b224&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-23T11:09:41.601Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-23T11:09:47.768Z DEBUG [STRATO_COMPONENTS] Detected 21 strato component instances, 0 via wrapper packages
+2026-09-23T11:09:47.768Z DEBUG [STRATO_COMPONENTS] Component: AppRoot, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.768Z DEBUG [STRATO_COMPONENTS] Component: Page, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.768Z DEBUG [STRATO_COMPONENTS] Component: Page.Main, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.768Z DEBUG [STRATO_COMPONENTS] Component: TitleBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.768Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Title, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Subtitle, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Suffix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: Button, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"neutral"},{"property":"disabled","value":"dynamic"},{"property":"onClick","value":"dynamic"}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: Button.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: DataTable, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"loading","value":"dynamic"},{"property":"data","value":"dynamic"},{"property":"columns","value":"dynamic"},{"property":"onSortChange","value":"dynamic"},{"property":"enableDefaultSort","value":true},{"property":"resizable","value":true}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: DataTable.TableActions, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"alignItems","value":"center"},{"property":"gap","value":8}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroup, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"onChange","value":"dynamic"}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"all"}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"gaps"}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: FilterBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"onFilterChange","value":"dynamic"}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: FilterBar.Item, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"name","value":"search"},{"property":"label","value":""}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: TextInput, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"placeholder","value":"Filter by service name"}]
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Toolbar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: DataTable.DownloadData, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-23T11:09:47.769Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Pagination, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"defaultPageSize","value":25}]
+2026-09-23T11:09:47.787Z DEBUG [SKILL_DOCUMENTS] Detected 0 skill documents and 0 reference documents
+2026-09-23T11:09:47.788Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-23T11:09:47.788Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-23T11:09:47.937Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-23T11:15:10.909Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:15:10.910Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:15:10.968Z INFO  Port 3000 is already in use. Using port 3002 instead.
+2026-09-23T11:15:10.968Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:15:10.968Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:15:11.309Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:15:11.309Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:15:11.309Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:15:11.311Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:15:11.315Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:15.455Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:16.151Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:16.435Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:17.051Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:17.258Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  Missing scope permissions: environment-api:entities:read,environment-api:slo:read
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2026-09-23T11:15:22.696Z DEBUG [TYPESCRIPT] 
+ui typescript worker thread has been initialized!
+2026-09-23T11:15:28.263Z DEBUG [BUILD_TIME] Built UI in 10860.013292ms.
+2026-09-23T11:15:28.305Z INFO  
+    ╭─────────────────────────────────────────────────────────────────╮
+    │                                                                 │
+    │   Updates for @dynatrace packages available:                    │
+    │   @dynatrace-sdk/client-classic-environment-v2 1.13.2 → 9.0.1   │
+    │   @dynatrace-sdk/client-query 1.11.0 → 1.27.0                   │
+    │   @dynatrace/strato-components-preview 0.113.2 → 3.4.1          │
+    │   @dynatrace/strato-icons 0.36.2 → 2.6.1                        │
+    │   To update, run npx dt-app update                              │
+    │                                                                 │
+    ╰─────────────────────────────────────────────────────────────────╯
+ 
+2026-09-23T11:15:28.305Z INFO 
+   ╭────────────────────────────────────────────────────────────╮
+   │                                                            │
+   │   Speed up your development with the new HMR dev server.   │
+   │   Add --hmr to opt in.                                     │
+   │                                                            │
+   ╰────────────────────────────────────────────────────────────╯
+
+2026-09-23T11:15:31.517Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.133Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.133Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.638Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.645Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.655Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.656Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.657Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.659Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:32.767Z ERROR Request failed: {"error":{"code":403,"message":"OAuth token is missing required scope. Use one of: [environment-api:slo:read]"}}
+2026-09-23T11:15:33.128Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:33.129Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:33.130Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:33.160Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:15:33.161Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:17:52.970Z DEBUG [PROCESS_CLEANUP] Starting dev cleanup process.
+2026-09-23T11:19:00.160Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:19:00.160Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:19:00.221Z INFO  Port 3000 is already in use. Using port 3002 instead.
+2026-09-23T11:19:00.221Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:19:00.221Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:19:00.429Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:19:00.429Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:19:00.429Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:19:00.430Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:19:00.434Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:13.694Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:14.612Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  Failed to retrieve user details. App functions will use placeholder data.
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2026-09-23T11:19:14.626Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:24.930Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:25.593Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:25.812Z DEBUG [getEffectivePermissionsApi] Error: Server error: 403 Forbidden
+2026-09-23T11:19:31.228Z DEBUG [TYPESCRIPT] 
+ui typescript worker thread has been initialized!
+2026-09-23T11:19:35.505Z DEBUG [BUILD_TIME] Built UI in 9450.630375ms.
+2026-09-23T11:19:35.518Z INFO  
+    ╭─────────────────────────────────────────────────────────────────╮
+    │                                                                 │
+    │   Updates for @dynatrace packages available:                    │
+    │   @dynatrace-sdk/client-classic-environment-v2 1.13.2 → 9.0.1   │
+    │   @dynatrace-sdk/client-query 1.11.0 → 1.27.0                   │
+    │   @dynatrace/strato-components-preview 0.113.2 → 3.4.1          │
+    │   @dynatrace/strato-icons 0.36.2 → 2.6.1                        │
+    │   To update, run npx dt-app update                              │
+    │                                                                 │
+    ╰─────────────────────────────────────────────────────────────────╯
+ 
+2026-09-23T11:19:35.518Z INFO 
+   ╭────────────────────────────────────────────────────────────╮
+   │                                                            │
+   │   Speed up your development with the new HMR dev server.   │
+   │   Add --hmr to opt in.                                     │
+   │                                                            │
+   ╰────────────────────────────────────────────────────────────╯
+
+2026-09-23T11:19:39.208Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:39.658Z ERROR Request failed: {"error":{"code":403,"message":"Authorization token is missing required scope: app-engine:apps:run.","details":{"missingScopes":["app-engine:apps:run"]}}}
+2026-09-23T11:19:39.802Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:39.815Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:39.817Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:39.818Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:39.819Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:39.821Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:19:40.043Z ERROR Request failed: {"error":{"code":403,"message":"OAuth token is missing required scope. Use one of: [environment-api:slo:read]"}}
+2026-09-23T11:19:40.312Z ERROR Request failed: {"error":{"message":"Insufficient permission to access the tenant.","code":403}}
+2026-09-23T11:19:40.313Z ERROR Request failed: {"error":{"message":"Insufficient permission to access the tenant.","code":403}}
+2026-09-23T11:19:40.326Z ERROR Request failed: {"error":{"message":"Insufficient permission to access the tenant.","code":403}}
+2026-09-23T11:19:40.470Z ERROR Request failed: {"error":{"message":"Insufficient permission to access the tenant.","code":403}}
+2026-09-23T11:19:40.470Z ERROR Request failed: {"error":{"message":"Insufficient permission to access the tenant.","code":403}}
+2026-09-23T11:21:44.186Z DEBUG [PROCESS_CLEANUP] Starting dev cleanup process.
+2026-09-23T11:24:55.905Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:24:55.905Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:24:55.966Z INFO  Port 3000 is already in use. Using port 3002 instead.
+2026-09-23T11:24:55.966Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:24:55.966Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:24:56.235Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:24:56.235Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:24:56.235Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:24:56.236Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:24:56.246Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:04.663Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:05.326Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:06.203Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:06.867Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:07.037Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  Missing scope permissions: environment-api:entities:read,environment-api:slo:read
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2026-09-23T11:25:12.702Z DEBUG [TYPESCRIPT] 
+ui typescript worker thread has been initialized!
+2026-09-23T11:25:24.239Z DEBUG [BUILD_TIME] Built UI in 17085.612750000004ms.
+2026-09-23T11:25:24.267Z INFO  
+    ╭─────────────────────────────────────────────────────────────────╮
+    │                                                                 │
+    │   Updates for @dynatrace packages available:                    │
+    │   @dynatrace-sdk/client-classic-environment-v2 1.13.2 → 9.0.1   │
+    │   @dynatrace-sdk/client-query 1.11.0 → 1.27.0                   │
+    │   @dynatrace/strato-components-preview 0.113.2 → 3.4.1          │
+    │   @dynatrace/strato-icons 0.36.2 → 2.6.1                        │
+    │   To update, run npx dt-app update                              │
+    │                                                                 │
+    ╰─────────────────────────────────────────────────────────────────╯
+ 
+2026-09-23T11:25:24.267Z INFO 
+   ╭────────────────────────────────────────────────────────────╮
+   │                                                            │
+   │   Speed up your development with the new HMR dev server.   │
+   │   Add --hmr to opt in.                                     │
+   │                                                            │
+   ╰────────────────────────────────────────────────────────────╯
+
+2026-09-23T11:25:25.944Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:26.903Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:26.912Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:26.913Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:26.915Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:26.916Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:26.918Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:27.075Z ERROR Request failed: {"error":{"code":403,"message":"OAuth token is missing required scope. Use one of: [environment-api:slo:read]"}}
+2026-09-23T11:25:27.429Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:27.429Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:27.433Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:27.616Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:25:27.617Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:26:09.998Z DEBUG [PROCESS_CLEANUP] Starting dev cleanup process.
+2026-09-23T11:27:42.238Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:27:42.238Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:27:42.295Z INFO  Port 3000 is already in use. Using port 3002 instead.
+2026-09-23T11:27:42.295Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:27:42.295Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:27:42.629Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:27:42.629Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:27:42.629Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:27:42.636Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:27:42.640Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:49.465Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:49.949Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:50.425Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:50.976Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:51.223Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  Missing scope permissions: environment-api:entities:read,environment-api:slo:read
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2026-09-23T11:27:56.824Z DEBUG [BUILD_TIME] Built UI in 5601.902457999999ms.
+2026-09-23T11:27:56.842Z INFO  
+    ╭─────────────────────────────────────────────────────────────────╮
+    │                                                                 │
+    │   Updates for @dynatrace packages available:                    │
+    │   @dynatrace-sdk/client-classic-environment-v2 1.13.2 → 9.0.1   │
+    │   @dynatrace-sdk/client-query 1.11.0 → 1.27.0                   │
+    │   @dynatrace/strato-components-preview 0.113.2 → 3.4.1          │
+    │   @dynatrace/strato-icons 0.36.2 → 2.6.1                        │
+    │   To update, run npx dt-app update                              │
+    │                                                                 │
+    ╰─────────────────────────────────────────────────────────────────╯
+ 
+2026-09-23T11:27:56.842Z INFO 
+   ╭────────────────────────────────────────────────────────────╮
+   │                                                            │
+   │   Speed up your development with the new HMR dev server.   │
+   │   Add --hmr to opt in.                                     │
+   │                                                            │
+   ╰────────────────────────────────────────────────────────────╯
+
+2026-09-23T11:27:58.410Z DEBUG [TYPESCRIPT] 
+ui typescript worker thread has been initialized!
+2026-09-23T11:27:58.987Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:59.802Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:59.809Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:59.810Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:59.811Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:59.812Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:27:59.814Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:28:00.030Z ERROR Request failed: {"error":{"code":403,"message":"OAuth token is missing required scope. Use one of: [environment-api:slo:read]"}}
+2026-09-23T11:28:00.303Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:28:00.304Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:28:00.309Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:28:00.312Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:28:00.359Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:34:33.504Z DEBUG [PROCESS_CLEANUP] Starting dev cleanup process.
+2026-09-23T11:36:14.758Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-23T11:36:14.758Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-23T11:36:14.816Z INFO  Port 3000 is already in use. Using port 3002 instead.
+2026-09-23T11:36:14.817Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-23T11:36:14.817Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-23T11:36:15.057Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-23T11:36:15.057Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-23T11:36:15.057Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "494338409623348100"
+2026-09-23T11:36:15.059Z DEBUG [TELEMETRY] Identification successful
+2026-09-23T11:36:15.069Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:19.636Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:21.408Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:31.784Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:32.339Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:32.753Z WARNING 
+Warning ──────────────────────────────────────────────────────────────────────────────────
+
+  Missing scope permissions: environment-api:entities:read,environment-api:slo:read
+
+──────────────────────────────────────────────────────────────────────────────────────────
+
+2026-09-23T11:36:37.854Z DEBUG [TYPESCRIPT] 
+ui typescript worker thread has been initialized!
+2026-09-23T11:36:49.523Z DEBUG [BUILD_TIME] Built UI in 16429.027292000002ms.
+2026-09-23T11:36:49.549Z INFO  
+    ╭─────────────────────────────────────────────────────────────────╮
+    │                                                                 │
+    │   Updates for @dynatrace packages available:                    │
+    │   @dynatrace-sdk/client-classic-environment-v2 1.13.2 → 9.0.1   │
+    │   @dynatrace-sdk/client-query 1.11.0 → 1.27.0                   │
+    │   @dynatrace/strato-components-preview 0.113.2 → 3.4.1          │
+    │   @dynatrace/strato-icons 0.36.2 → 2.6.1                        │
+    │   To update, run npx dt-app update                              │
+    │                                                                 │
+    ╰─────────────────────────────────────────────────────────────────╯
+ 
+2026-09-23T11:36:49.549Z INFO 
+   ╭────────────────────────────────────────────────────────────╮
+   │                                                            │
+   │   Speed up your development with the new HMR dev server.   │
+   │   Add --hmr to opt in.                                     │
+   │                                                            │
+   ╰────────────────────────────────────────────────────────────╯
+
+2026-09-23T11:36:52.281Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:52.905Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:52.916Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:52.918Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:52.919Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:52.922Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:52.923Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:53.076Z ERROR Request failed: {"error":{"code":403,"message":"OAuth token is missing required scope. Use one of: [environment-api:slo:read]"}}
+2026-09-23T11:36:53.401Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:53.402Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:53.403Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:53.403Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:36:53.404Z DEBUG [AUTH] Using DT_APP_PLATFORM_TOKEN for authentication.
+2026-09-23T11:39:22.208Z DEBUG [PROCESS_CLEANUP] Starting dev cleanup process.

@@ -1,0 +1,46 @@
+{
+  "environmentUrl": "https://dqi8021h.sprint.apps.dynatracelabs.com/",
+  "build": {
+    "sourceRoot": "src"
+  },
+  "app": {
+    "name": "Observability Scorecard",
+    "version": "0.0.4",
+    "description": "Signal coverage scorecard",
+    "id": "my.observability.scorecard",
+    "scopes": [
+      {
+        "name": "storage:spans:read",
+        "comment": "Detect trace coverage per service"
+      },
+      {
+        "name": "storage:logs:read",
+        "comment": "Detect log coverage per service"
+      },
+      {
+        "name": "storage:buckets:read",
+        "comment": "Access storage buckets"
+      },
+      {
+        "name": "storage:bizevents:read",
+        "comment": "Detect cloud event coverage per service"
+      },
+      {
+        "name": "storage:metrics:read",
+        "comment": "Detect metric coverage per service"
+      },
+      {
+        "name": "environment-api:entities:read",
+        "comment": "Fetch service entity list"
+      },
+      {
+        "name": "environment-api:slo:read",
+        "comment": "Detect SLO coverage per service"
+      },
+      {
+        "name": "storage:smartscape:read",
+        "comment": "Read Smartscape topology for service relationships"
+      }
+    ]
+  }
+}

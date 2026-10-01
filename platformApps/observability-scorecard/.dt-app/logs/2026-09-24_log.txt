@@ -1,0 +1,560 @@
+2026-09-24T09:40:36.775Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T09:40:36.776Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T09:40:36.808Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:40:36.808Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T09:40:37.958Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D096af35c-bcf6-4d93-b073-a1301f3d5261&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T09:40:37.958Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T09:40:37.958Z DEBUG [AUTH] OAuth2 token expired with a value of: -80758.958 seconds
+2026-09-24T09:40:37.958Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:40:37.958Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D096af35c-bcf6-4d93-b073-a1301f3d5261&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T09:40:37.958Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T09:40:38.040Z ERROR Token is invalid
+2026-09-24T09:40:56.419Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T09:40:56.420Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T09:40:56.422Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:40:56.422Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T09:40:57.417Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D8e3eb2a4-c75c-4767-9bad-927f3161a643&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T09:40:57.417Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T09:40:57.418Z DEBUG [AUTH] OAuth2 token expired with a value of: -80778.418 seconds
+2026-09-24T09:40:57.418Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:40:57.418Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D8e3eb2a4-c75c-4767-9bad-927f3161a643&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T09:40:57.418Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T09:40:57.503Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:40:57.503Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D8e3eb2a4-c75c-4767-9bad-927f3161a643&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T09:40:57.503Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T09:40:57.503Z DEBUG [AUTH] Authenticate with Dynatrace SSO
+2026-09-24T09:40:57.987Z DEBUG [AUTH] SSO-link https://sso-sprint.dynatracelabs.com/oauth2/authorize?client_id=dt0s08.dt-app-local&redirect_uri=http%3A%2F%2Flocalhost%3A5343%2Fauth%2Flogin&state=2708424313eec66ff2c7eb0ece05bc1894104ac8&response_type=code&code_challenge_method=S256&code_challenge=c8ymRmZWjzamJG0wBz3iLS243ThL85FhcLT7-SB-DDk
+2026-09-24T09:40:58.646Z DEBUG [AUTH] Received authorized code for oAuth
+2026-09-24T09:40:58.748Z INFO Authentication completed successfully
+2026-09-24T09:41:00.796Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T09:41:00.796Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T09:41:00.802Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:41:00.802Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T09:41:01.800Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3Dc9cdf566-cbef-4722-a7ad-c17b91a0902d&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T09:41:01.800Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T09:41:01.800Z DEBUG [AUTH] Authenticate with Dynatrace SSO
+2026-09-24T09:41:02.102Z DEBUG [AUTH] SSO-link https://sso-sprint.dynatracelabs.com/oauth2/authorize?client_id=dt0s08.dt-app-local&redirect_uri=http%3A%2F%2Flocalhost%3A5343%2Fauth%2Flogin&state=6d2d134a9c1d8abc63561f8ffff377d9d48f252f&response_type=code&code_challenge_method=S256&code_challenge=QN02BVGwJnNY1ro4vDdgaiir1cFfKCHzo1sZcL0ZS8w&scope=app-engine%3Aapps%3Arun%20storage%3Aspans%3Aread%20storage%3Alogs%3Aread%20storage%3Abuckets%3Aread%20storage%3Abizevents%3Aread%20storage%3Ametrics%3Aread%20environment-api%3Aentities%3Aread%20environment-api%3Aslo%3Aread
+2026-09-24T09:41:02.406Z DEBUG [AUTH] Received authorized code for oAuth
+2026-09-24T09:41:02.539Z INFO Authentication completed successfully
+2026-09-24T09:41:04.601Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T09:41:04.602Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T09:41:04.604Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T09:41:04.605Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T09:41:05.576Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3Da1ce65c1-8ccc-4ced-924a-7123d1deb697&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:12:08.973Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:12:08.973Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:12:09.031Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:12:09.031Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:12:09.316Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:12:09.316Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:12:09.316Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:12:09.321Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:12:42.746Z DEBUG [BUILD_TIME] Built UI in 11518.910458000006ms.
+2026-09-24T11:12:42.748Z DEBUG [BUILD_TIME] Built in 32231.948457999995ms.
+2026-09-24T11:12:42.752Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2183.42 KB)
+2026-09-24T11:12:42.752Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:12:42.752Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:12:42.752Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:12:42.792Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-24T11:12:42.792Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-24T11:12:42.793Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:12:42.793Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T11:12:44.840Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31650c48-7c1e-411b-91c4-2b5bd2813692&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:12:44.840Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:12:44.840Z DEBUG [AUTH] OAuth2 token expired with a value of: -5206.84 seconds
+2026-09-24T11:12:44.840Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:12:44.840Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31650c48-7c1e-411b-91c4-2b5bd2813692&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:12:44.840Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:12:45.535Z DEBUG [DEPLOY] Installing the app
+2026-09-24T11:12:45.611Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:12:45.611Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31650c48-7c1e-411b-91c4-2b5bd2813692&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:12:45.611Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:12:46.783Z DEBUG [DEPLOY] App installed
+2026-09-24T11:12:46.793Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:12:46.793Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31650c48-7c1e-411b-91c4-2b5bd2813692&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:12:46.793Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:12:47.778Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:12:47.778Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31650c48-7c1e-411b-91c4-2b5bd2813692&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:12:47.778Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:12:50.339Z DEBUG [STRATO_COMPONENTS] Detected 21 strato component instances, 0 via wrapper packages
+2026-09-24T11:12:50.339Z DEBUG [STRATO_COMPONENTS] Component: AppRoot, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.339Z DEBUG [STRATO_COMPONENTS] Component: Page, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.339Z DEBUG [STRATO_COMPONENTS] Component: Page.Main, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.339Z DEBUG [STRATO_COMPONENTS] Component: TitleBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.339Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Title, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Subtitle, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Suffix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: Button, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"neutral"},{"property":"disabled","value":"dynamic"},{"property":"onClick","value":"dynamic"}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: Button.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: DataTable, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"loading","value":"dynamic"},{"property":"data","value":"dynamic"},{"property":"columns","value":"dynamic"},{"property":"onSortChange","value":"dynamic"},{"property":"enableDefaultSort","value":true},{"property":"resizable","value":true}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: DataTable.TableActions, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"alignItems","value":"center"},{"property":"gap","value":8}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroup, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"onChange","value":"dynamic"}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"all"}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"gaps"}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: FilterBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"onFilterChange","value":"dynamic"}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: FilterBar.Item, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"name","value":"search"},{"property":"label","value":""}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: TextInput, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"placeholder","value":"Filter by service name"}]
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Toolbar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: DataTable.DownloadData, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:12:50.340Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Pagination, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"defaultPageSize","value":25}]
+2026-09-24T11:12:50.343Z DEBUG [SKILL_DOCUMENTS] Detected 0 skill documents and 0 reference documents
+2026-09-24T11:12:50.343Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-24T11:12:50.343Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:12:50.572Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:15:40.712Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:15:40.713Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:15:40.765Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:15:40.765Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:15:40.989Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:15:40.989Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:15:40.989Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:15:40.991Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:15:47.460Z DEBUG [BUILD_TIME] Built UI in 2555.947833ms.
+2026-09-24T11:15:47.462Z DEBUG [BUILD_TIME] Built in 5593.540333999999ms.
+2026-09-24T11:15:47.463Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2183.42 KB)
+2026-09-24T11:15:47.463Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:15:47.463Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:15:47.463Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:15:47.484Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-24T11:15:47.484Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-24T11:15:47.486Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:15:47.486Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T11:15:48.616Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D1c5ba46a-7f76-4057-9d3d-7c68a798851f&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:15:48.616Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:15:48.821Z DEBUG [DEPLOY] Installing the app
+2026-09-24T11:15:48.890Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:15:48.890Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D1c5ba46a-7f76-4057-9d3d-7c68a798851f&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:15:48.890Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:15:49.824Z DEBUG [APP-REGISTRY] Failed to install the app
+HTTP 400 Bad Request
+
+Cannot install app with version 0.0.1 because the same version is already installed with a different checksum.
+{
+  "code": 400,
+  "message": "Cannot install app with version 0.0.1 because the same version is already installed with a different checksum."
+}
+2026-09-24T11:15:49.824Z ERROR Error: Failed to install the app
+HTTP 400 Bad Request
+
+Cannot install app with version 0.0.1 because the same version is already installed with a different checksum.
+
+2026-09-24T11:15:49.824Z DEBUG [TELEMETRY] Reporting error cause
+2026-09-24T11:15:49.825Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:15:49.894Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:16:03.734Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:16:03.735Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:16:03.790Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:16:03.790Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:16:04.017Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:16:04.017Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:16:04.017Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:16:04.020Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:16:11.464Z DEBUG [BUILD_TIME] Built UI in 2412.5695000000005ms.
+2026-09-24T11:16:11.467Z DEBUG [BUILD_TIME] Built in 6421.269625000001ms.
+2026-09-24T11:16:11.468Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2183.42 KB)
+2026-09-24T11:16:11.468Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:16:11.468Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:16:11.468Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:16:11.478Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-24T11:16:11.478Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-24T11:16:11.479Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:16:11.479Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T11:16:12.356Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2e206aa8-1d60-4a92-8bf7-9aa9490e7a10&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:16:12.356Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:16:14.117Z DEBUG [DEPLOY] Installing the app
+2026-09-24T11:16:14.203Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:16:14.203Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2e206aa8-1d60-4a92-8bf7-9aa9490e7a10&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:16:14.203Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:16:15.361Z DEBUG [DEPLOY] App installed
+2026-09-24T11:16:15.362Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:16:15.362Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2e206aa8-1d60-4a92-8bf7-9aa9490e7a10&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:16:15.362Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:16:16.320Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:16:16.320Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2e206aa8-1d60-4a92-8bf7-9aa9490e7a10&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:16:16.320Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Detected 21 strato component instances, 0 via wrapper packages
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: AppRoot, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: Page, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: Page.Main, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: TitleBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Title, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Subtitle, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Suffix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: Button, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"neutral"},{"property":"disabled","value":"dynamic"},{"property":"onClick","value":"dynamic"}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: Button.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: DataTable, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"loading","value":"dynamic"},{"property":"data","value":"dynamic"},{"property":"columns","value":"dynamic"},{"property":"onSortChange","value":"dynamic"},{"property":"enableDefaultSort","value":true},{"property":"resizable","value":true}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: DataTable.TableActions, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"alignItems","value":"center"},{"property":"gap","value":8}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroup, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"onChange","value":"dynamic"}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"all"}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"gaps"}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: FilterBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"onFilterChange","value":"dynamic"}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: FilterBar.Item, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"name","value":"search"},{"property":"label","value":""}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: TextInput, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"placeholder","value":"Filter by service name"}]
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Toolbar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: DataTable.DownloadData, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:16:18.449Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Pagination, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"defaultPageSize","value":25}]
+2026-09-24T11:16:18.452Z DEBUG [SKILL_DOCUMENTS] Detected 0 skill documents and 0 reference documents
+2026-09-24T11:16:18.453Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-24T11:16:18.453Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:16:18.635Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:21:16.103Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:21:16.103Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:21:16.157Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:21:16.157Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:21:16.397Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:21:16.397Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:21:16.397Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:21:16.398Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:21:26.817Z DEBUG [BUILD_TIME] Built UI in 3523.2766250000004ms.
+2026-09-24T11:21:26.820Z DEBUG [BUILD_TIME] Built in 8210.744292ms.
+2026-09-24T11:21:26.822Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2209.86 KB)
+2026-09-24T11:21:26.822Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:21:26.822Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:21:26.822Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:21:26.826Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-24T11:21:26.826Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:21:27.041Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:21:36.206Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:21:36.207Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:21:36.262Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:21:36.262Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:21:36.545Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:21:36.546Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:21:36.546Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:21:36.546Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:21:43.146Z DEBUG [BUILD_TIME] Built UI in 2380.245917ms.
+2026-09-24T11:21:43.148Z DEBUG [BUILD_TIME] Built in 6026.93225ms.
+2026-09-24T11:21:43.157Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2209.86 KB)
+2026-09-24T11:21:43.157Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:21:43.157Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:21:43.157Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:21:43.172Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-24T11:21:43.172Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-24T11:21:43.173Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:21:43.173Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T11:21:44.183Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2c44e59c-50dd-418b-a081-76786d952247&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:21:44.183Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:21:44.183Z DEBUG [AUTH] OAuth2 token expired with a value of: -239.183 seconds
+2026-09-24T11:21:44.184Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:21:44.184Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2c44e59c-50dd-418b-a081-76786d952247&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:21:44.184Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:21:44.667Z DEBUG [DEPLOY] Installing the app
+2026-09-24T11:21:44.743Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:21:44.744Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D2c44e59c-50dd-418b-a081-76786d952247&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:21:44.744Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:21:45.689Z DEBUG [APP-REGISTRY] Failed to install the app
+HTTP 400 Bad Request
+
+Cannot install app with version 0.0.2 because the same version is already installed with a different checksum.
+{
+  "code": 400,
+  "message": "Cannot install app with version 0.0.2 because the same version is already installed with a different checksum."
+}
+2026-09-24T11:21:45.691Z ERROR Error: Failed to install the app
+HTTP 400 Bad Request
+
+Cannot install app with version 0.0.2 because the same version is already installed with a different checksum.
+
+2026-09-24T11:21:45.691Z DEBUG [TELEMETRY] Reporting error cause
+2026-09-24T11:21:45.692Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:21:45.759Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:21:54.197Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:21:54.197Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:21:54.259Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:21:54.259Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:21:54.484Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:21:54.484Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:21:54.484Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:21:54.485Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:22:02.038Z DEBUG [BUILD_TIME] Built UI in 2794.4149159999997ms.
+2026-09-24T11:22:02.040Z DEBUG [BUILD_TIME] Built in 6718.966708ms.
+2026-09-24T11:22:02.042Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2209.86 KB)
+2026-09-24T11:22:02.042Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:22:02.042Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:22:02.042Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:22:02.105Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-24T11:22:02.105Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-24T11:22:02.106Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:22:02.106Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T11:22:02.988Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3Dd163cb53-d301-4d17-ac99-f64b1916d1e6&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:22:02.988Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:22:04.697Z DEBUG [DEPLOY] Installing the app
+2026-09-24T11:22:04.780Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:22:04.780Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3Dd163cb53-d301-4d17-ac99-f64b1916d1e6&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:22:04.780Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:22:05.932Z DEBUG [DEPLOY] App installed
+2026-09-24T11:22:05.933Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:22:05.933Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3Dd163cb53-d301-4d17-ac99-f64b1916d1e6&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:22:05.933Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Detected 30 strato component instances, 0 via wrapper packages
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: AppRoot, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Page, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Page.Main, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Chip, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"dynamic"},{"property":"size","value":"condensed"}]
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Chip.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"flexDirection","value":"column"},{"property":"gap","value":4},{"property":"style","value":"dynamic"}]
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: ProgressBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"variant","value":"dynamic"},{"property":"density","value":"condensed"},{"property":"aria-label","value":"dynamic"}]
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: TitleBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Title, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Subtitle, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Suffix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Button, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"neutral"},{"property":"disabled","value":"dynamic"},{"property":"onClick","value":"dynamic"}]
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Button.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.597Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"gap","value":12},{"property":"style","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"Total Services"},{"property":"loading","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"Full Coverage"},{"property":"loading","value":"dynamic"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"With Gaps"},{"property":"loading","value":"dynamic"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"Coverage Rate"},{"property":"loading","value":"dynamic"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: DataTable, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"loading","value":"dynamic"},{"property":"data","value":"dynamic"},{"property":"columns","value":"dynamic"},{"property":"onSortChange","value":"dynamic"},{"property":"enableDefaultSort","value":true},{"property":"resizable","value":true}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: DataTable.TableActions, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"alignItems","value":"center"},{"property":"gap","value":8}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroup, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"onChange","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"all"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"gaps"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: FilterBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"onFilterChange","value":"dynamic"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: FilterBar.Item, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"name","value":"search"},{"property":"label","value":""}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: TextInput, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"placeholder","value":"Filter by service name"}]
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Toolbar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: DataTable.DownloadData, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:22:08.598Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Pagination, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"defaultPageSize","value":25}]
+2026-09-24T11:22:08.601Z DEBUG [SKILL_DOCUMENTS] Detected 0 skill documents and 0 reference documents
+2026-09-24T11:22:08.601Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-24T11:22:08.601Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:22:08.794Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:38:10.082Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:38:10.082Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:38:10.142Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:38:10.142Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:38:10.463Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:38:10.463Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:38:10.463Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:38:10.470Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:38:42.384Z DEBUG [BUILD_TIME] Built UI in 10372.736292000001ms.
+2026-09-24T11:38:42.387Z DEBUG [BUILD_TIME] Built in 30781.63425ms.
+2026-09-24T11:38:42.389Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2210.69 KB)
+2026-09-24T11:38:42.389Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:38:42.389Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:38:42.389Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:38:42.402Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-24T11:38:42.402Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:38:42.604Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
+2026-09-24T11:38:51.884Z DEBUG [PLUGIN] Searching for configuration file
+2026-09-24T11:38:51.885Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-09-24T11:38:51.932Z DEBUG [TELEMETRY] Initializing telemetry
+2026-09-24T11:38:51.932Z DEBUG [TELEMETRY] Using telemetry endpoint https://bf96767wvv.bf.dynatrace.com/mbeacon
+2026-09-24T11:38:52.159Z DEBUG [TELEMETRY] Creating a new HTTP and HTTPS interceptor for tracing
+2026-09-24T11:38:52.159Z DEBUG [TELEMETRY] Successfully initialized OpenKit
+2026-09-24T11:38:52.159Z DEBUG [TELEMETRY] Telemetry enabled: Session ID "515149689758146800"
+2026-09-24T11:38:52.160Z DEBUG [TELEMETRY] Identification successful
+2026-09-24T11:38:58.270Z DEBUG [BUILD_TIME] Built UI in 2915.663291ms.
+2026-09-24T11:38:58.272Z DEBUG [BUILD_TIME] Built in 5523.230375ms.
+2026-09-24T11:38:58.275Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.js (2210.69 KB)
+2026-09-24T11:38:58.275Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/main.css (260.51 KB)
+2026-09-24T11:38:58.275Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/index.html (0.52 KB)
+2026-09-24T11:38:58.275Z DEBUG [FILES] CREATED: /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/dist/ui/assets/.gitkeep (0.00 KB)
+2026-09-24T11:38:58.361Z DEBUG [PLATFORM_DEPENDENCIES] 
+Dynatrace Platform Dependencies
+@dynatrace-sdk/client-query/ /platform/storage/query/v1
+@dynatrace-sdk/client-classic-environment-v2/ /platform/classic/environment-api/v2
+
+2026-09-24T11:38:58.361Z DEBUG [LIBRARY_DEPENDENCIES] 
+Dynatrace Library Dependencies
+@dynatrace/strato-components-preview@0.113.2
+@dynatrace-sdk/units@0.13.2
+@dynatrace/strato-icons@0.36.1
+@dynatrace/strato-design-tokens@0.20.8
+@dynatrace-sdk/user-preferences@1.1.5
+@dynatrace-sdk/error-handlers@1.3.2
+@dynatrace-sdk/http-client@1.5.1
+@dynatrace-sdk/client-query@1.11.0
+@dynatrace-sdk/client-classic-environment-v2@1.13.2
+@dynatrace/strato-design-tokens@1.7.1
+@dynatrace/strato-icons@0.36.2
+
+2026-09-24T11:38:58.363Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:38:58.363Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-09-24T11:38:59.291Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31b58931-a602-4d89-82c0-a84d51488e76&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:38:59.291Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:38:59.291Z DEBUG [AUTH] OAuth2 token expired with a value of: -735.291 seconds
+2026-09-24T11:38:59.291Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:38:59.291Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31b58931-a602-4d89-82c0-a84d51488e76&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:38:59.291Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:38:59.839Z DEBUG [DEPLOY] Installing the app
+2026-09-24T11:38:59.915Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:38:59.915Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31b58931-a602-4d89-82c0-a84d51488e76&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:38:59.915Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:39:01.061Z DEBUG [DEPLOY] App installed
+2026-09-24T11:39:01.064Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-09-24T11:39:01.064Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D31b58931-a602-4d89-82c0-a84d51488e76&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-09-24T11:39:01.064Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Detected 37 strato component instances, 0 via wrapper packages
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: AppRoot, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: Page, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: Page.Main, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: Chip, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"dynamic"},{"property":"size","value":"condensed"}]
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: Chip.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"flexDirection","value":"column"},{"property":"gap","value":4},{"property":"style","value":"dynamic"}]
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: ProgressBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"variant","value":"dynamic"},{"property":"density","value":"condensed"},{"property":"aria-label","value":"dynamic"}]
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: TitleBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.987Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Title, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Subtitle, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: TitleBar.Suffix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: Button, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"color","value":"neutral"},{"property":"disabled","value":"dynamic"},{"property":"onClick","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: Button.Prefix, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"min","value":0},{"property":"max","value":5},{"property":"size","value":"size24"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart.Label, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart.Value, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart.Thresholds, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart.Threshold, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":2.5},{"property":"color","value":"dynamic"},{"property":"name","value":"Needs improvement"},{"property":"showIndicator","value":true}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart.Threshold, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":4},{"property":"color","value":"dynamic"},{"property":"name","value":"Good"},{"property":"showIndicator","value":true}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: MeterBarChart.ThresholdLegend, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"gap","value":12},{"property":"style","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"Total Services"},{"property":"loading","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"Full Coverage"},{"property":"loading","value":"dynamic"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"With Gaps"},{"property":"loading","value":"dynamic"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: SingleValue, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"data","value":"dynamic"},{"property":"label","value":"Coverage Rate"},{"property":"loading","value":"dynamic"},{"property":"color","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: DataTable, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"loading","value":"dynamic"},{"property":"data","value":"dynamic"},{"property":"columns","value":"dynamic"},{"property":"onSortChange","value":"dynamic"},{"property":"enableDefaultSort","value":true},{"property":"resizable","value":true}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: DataTable.TableActions, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: Flex, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"alignItems","value":"center"},{"property":"gap","value":8}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroup, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"dynamic"},{"property":"onChange","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"all"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: ToggleButtonGroupItem, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"value","value":"gaps"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: FilterBar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"onFilterChange","value":"dynamic"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: FilterBar.Item, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"name","value":"search"},{"property":"label","value":""}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: TextInput, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"placeholder","value":"Filter by service name"}]
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Toolbar, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: DataTable.DownloadData, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: []
+2026-09-24T11:39:03.988Z DEBUG [STRATO_COMPONENTS] Component: DataTable.Pagination, Package: @dynatrace/strato-components-preview, Wrapper: none, Props: [{"property":"defaultPageSize","value":25}]
+2026-09-24T11:39:03.991Z DEBUG [SKILL_DOCUMENTS] Detected 0 skill documents and 0 reference documents
+2026-09-24T11:39:03.991Z INFO 
+   ╭─────────────────────────────────────────────────────────────╮
+   │                                                             │
+   │   Speed up your build with the optimized build toolchain.   │
+   │   Add --optimize and --enable-code-splitting to opt in.     │
+   │                                                             │
+   ╰─────────────────────────────────────────────────────────────╯
+
+2026-09-24T11:39:03.992Z DEBUG [TELEMETRY] Closing OpenKit connection
+2026-09-24T11:39:04.178Z DEBUG [TELEMETRY] Successfully closed OpenKit connection
