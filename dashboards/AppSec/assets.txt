@@ -1,0 +1,5 @@
+Node2Shell Exposure Assessment (CVE-2026-111497)
+https://xww15327.apps.dynatrace.com/ui/document/v0/#share=c6b44e2f-ed14-40f8-8292-33fc4fe6e283
+
+NodeJS Vulnerabilitiy Assessment
+https://xww15327.apps.dynatrace.com/ui/document/v0/#share=6eacd79e-58d4-49c4-bb48-f29162762853
