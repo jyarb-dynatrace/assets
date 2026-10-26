@@ -1,0 +1,15 @@
+2026-10-23T09:52:24.873Z DEBUG [PLUGIN] Searching for configuration file
+2026-10-23T09:52:24.874Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-10-23T09:52:24.876Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-10-23T09:52:24.877Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
+2026-10-23T09:52:25.838Z DEBUG [HTTP(S)] Resolved URL is https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D96abeb78-06d5-47ba-9773-e3dcbc59dd40&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-10-23T09:52:25.838Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-10-23T09:52:25.838Z DEBUG [AUTH] OAuth2 token expired with a value of: -2495306.838 seconds
+2026-10-23T09:52:25.838Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-10-23T09:52:25.838Z DEBUG [HTTP(S)] Found resolved URL in cache: https://sso-sprint.dynatracelabs.com/action/signin?goto=https%3A%2F%2Fsso-sprint.dynatracelabs.com%3A443%2Foauth2%2Fauthorize%2Fredirect%3FoAuth2CtxUuid%3D96abeb78-06d5-47ba-9773-e3dcbc59dd40&oAuth2RedirectUri=https%3A%2F%2Fdqi8021h.sprint.apps.dynatracelabs.com%2Fplatform%2Flogin%2Foauth2%2Fcode%2Fdynatrace-sso
+2026-10-23T09:52:25.838Z DEBUG [AUTH] Using SSO-URL 'https://sso-sprint.dynatracelabs.com'
+2026-10-23T09:52:25.896Z ERROR Token is invalid
+2026-10-23T09:52:32.068Z DEBUG [PLUGIN] Searching for configuration file
+2026-10-23T09:52:32.069Z DEBUG [PLUGIN] Found /Users/jeffery.yarbrough/Library/CloudStorage/OneDrive-Dynatrace/Documents/GitHub/assets/platformApps/observability-scorecard/app.config.json
+2026-10-23T09:52:32.072Z DEBUG [AUTH] Retrieving SSO-URL for environment 'https://dqi8021h.sprint.apps.dynatracelabs.com'
+2026-10-23T09:52:32.072Z DEBUG [HTTP(S)] Execute GET request without allowing redirection to 'https://dqi8021h.sprint.apps.dynatracelabs.com/platform/oauth2/authorization/dynatrace-sso'
